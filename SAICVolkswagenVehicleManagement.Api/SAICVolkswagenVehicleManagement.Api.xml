@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SAICVolkswagenVehicleManagement.Api</name>
+    </assembly>
+    <members>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController">
+            <summary>
+            部门信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController.GetDepartmentAsync">
+            <summary>
+            获取部门信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController">
+            <summary>
+            菜单信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController.GetPermissionAsync">
+            <summary>
+            获取菜单信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="_dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.GetUserInfoAsync">
+            <summary>
+            获取员工信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.LoginUserInfoAsync(SAICVolkswagenVehicleManagement_Model.R_UserInfo)">
+            <summary>
+            登录
+            </summary>
+            <param name="r_UserInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.GetFirstUserInfoAsync(System.Int32)">
+            <summary>
+            找到一条数据
+            </summary>
+            <param name="userId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.InsertUserInfoAsync(SAICVolkswagenVehicleManagement_Model.R_UserInfo)">
+            <summary>
+            注册员工信息
+            </summary>
+            <param name="r_UserInfo"></param>
+            <returns>注册员工信息</returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.DeleteUserInfoAsync(SAICVolkswagenVehicleManagement_Model.R_UserInfo)">
+            <summary>
+            删除一条用户数据
+            </summary>
+            <param name="r_UserInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.UpdateUserInfoAsync(SAICVolkswagenVehicleManagement_Model.R_UserInfo)">
+            <summary>
+            修改一条用户数据
+            </summary>
+            <param name="r_UserInfo">反填的用户信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto">
+            <summary>
+            注册员工信息类
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.UserID">
+            <summary>
+            用户ID
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.UserCode">
+            <summary>
+            用户编号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.UserName">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.UserPassWord">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.Department_ID">
+            <summary>
+            部门ID
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.DepartmentName">
+            <summary>
+            部门名称
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.DepartmentCode">
+            <summary>
+            部门编码
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.UserSex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.UserRemark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.E_Mail">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.Birthday">
+            <summary>
+            出生日期
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.CreateDate">
+            <summary>
+            创建日期
+            </summary>
+        </member>
+        <member name="T:ResultTest.RetureStates">
+            <summary>
+            返回的状态
+            </summary>
+        </member>
+    </members>
+</doc>

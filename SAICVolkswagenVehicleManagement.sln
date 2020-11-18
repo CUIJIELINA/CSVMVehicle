@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAICVolkswagenVehicleManagement.Api", "SAICVolkswagenVehicleManagement.Api\SAICVolkswagenVehicleManagement.Api.csproj", "{62055BFD-C837-4984-8919-B69B5D64EEA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAICVolkswagenVehicleManagement_Model", "SAICVolkswagenVehicleManagement_Model\SAICVolkswagenVehicleManagement_Model.csproj", "{FC39C15A-9141-44F6-8B3D-2A0F4DA055E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAICVolkswagenVehicleManagement_Common", "SAICVolkswagenVehicleManagement_Common\SAICVolkswagenVehicleManagement_Common.csproj", "{896BCA43-C6AA-4098-A7EF-4C18AD2EF56A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAICVolkswagenVehicleManagement_Helper", "SAICVolkswagenVehicleManagement_Helper\SAICVolkswagenVehicleManagement_Helper.csproj", "{8BEF2D36-3A61-4690-AD74-9C65F736A385}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62055BFD-C837-4984-8919-B69B5D64EEA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62055BFD-C837-4984-8919-B69B5D64EEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62055BFD-C837-4984-8919-B69B5D64EEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62055BFD-C837-4984-8919-B69B5D64EEA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC39C15A-9141-44F6-8B3D-2A0F4DA055E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC39C15A-9141-44F6-8B3D-2A0F4DA055E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC39C15A-9141-44F6-8B3D-2A0F4DA055E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC39C15A-9141-44F6-8B3D-2A0F4DA055E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{896BCA43-C6AA-4098-A7EF-4C18AD2EF56A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{896BCA43-C6AA-4098-A7EF-4C18AD2EF56A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{896BCA43-C6AA-4098-A7EF-4C18AD2EF56A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{896BCA43-C6AA-4098-A7EF-4C18AD2EF56A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BEF2D36-3A61-4690-AD74-9C65F736A385}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BEF2D36-3A61-4690-AD74-9C65F736A385}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BEF2D36-3A61-4690-AD74-9C65F736A385}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BEF2D36-3A61-4690-AD74-9C65F736A385}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F31B58B-6E39-4774-A5A2-A869913B847B}
+	EndGlobalSection
+EndGlobal
