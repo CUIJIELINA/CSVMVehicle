@@ -155,6 +155,40 @@
             创建日期
             </summary>
         </member>
+        <member name="T:ResultTest.BaseResultModel">
+            <summary>
+            返回
+            </summary>
+        </member>
+        <member name="M:ResultTest.BaseResultModel.#ctor(System.Nullable{System.Int32},System.String,System.Object,ResultTest.RetureStates)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="code"></param>
+            <param name="message"></param>
+            <param name="result"></param>
+            <param name="retureStates"></param>
+        </member>
+        <member name="P:ResultTest.BaseResultModel.Code">
+            <summary>
+            返回状态码
+            </summary>
+        </member>
+        <member name="P:ResultTest.BaseResultModel.Message">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="P:ResultTest.BaseResultModel.Result">
+            <summary>
+            返回结果
+            </summary>
+        </member>
+        <member name="P:ResultTest.BaseResultModel.RetureStates">
+            <summary>
+            结果状态
+            </summary>
+        </member>
         <member name="T:ResultTest.RetureStates">
             <summary>
             返回的状态
