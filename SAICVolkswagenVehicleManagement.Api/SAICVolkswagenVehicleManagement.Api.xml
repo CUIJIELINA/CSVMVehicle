@@ -207,5 +207,10 @@
             返回的状态
             </summary>
         </member>
+        <member name="T:ResultTest.Filters.ApiResultFilterAttribute">
+            <summary>
+            结果过滤器
+            </summary>
+        </member>
     </members>
 </doc>
