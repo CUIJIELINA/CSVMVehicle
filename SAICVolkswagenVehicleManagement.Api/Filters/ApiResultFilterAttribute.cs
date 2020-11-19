@@ -4,6 +4,9 @@ using ResultTest.Models;
 
 namespace ResultTest.Filters
 {
+    /// <summary>
+    /// 结果过滤器
+    /// </summary>
     public class ApiResultFilterAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
