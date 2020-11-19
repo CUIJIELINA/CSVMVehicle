@@ -36,5 +36,43 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             IEnumerable<DepartmentInfo> departmentInfos = await dbContext.departmentInfoRepository.GetAllInfoAsync();
             return Ok(departmentInfos.ToList());
         }
+
+        /// <summary>
+        /// 添加部门信息
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> InsertDepartmentAsync(DepartmentInfo departmentInfo)
+        {
+            dbContext.departmentInfoRepository.CreateInfo(departmentInfo);
+            if(await dbContext.departmentInfoRepository.SaveAsync())
+            {
+                return Ok(1);
+            }
+            return Ok("添加失败");
+        }
+
+        /// <summary>
+        /// 删除部门信息
+        /// </summary>
+        /// <param name="departmentId">部门ID</param>
+        /// <returns></returns>
+        [HttpDelete]
+        public async Task<IActionResult> DeleteDepartmentAsync(int departmentId)
+        {
+            //首先查找一条数据
+            if(await dbContext.departmentInfoRepository.IsExistAsync(departmentId))
+            {
+                //找出对应的一条数据
+                DepartmentInfo departmentInfo = await dbContext.departmentInfoRepository.GetFirstInfo(departmentId);
+                dbContext.departmentInfoRepository.DeleteInfo(departmentInfo);
+                if(await dbContext.departmentInfoRepository.SaveAsync())
+                {
+                    return Ok(1);
+                }
+            }
+            //没有找到这条数据
+            return NotFound();
+        }
     }
 }

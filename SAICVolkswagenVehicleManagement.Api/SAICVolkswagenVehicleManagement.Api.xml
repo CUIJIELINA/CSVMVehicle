@@ -21,6 +21,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController.InsertDepartmentAsync(SAICVolkswagenVehicleManagement_Model.DepartmentInfo)">
+            <summary>
+            添加部门信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController.DeleteDepartmentAsync(System.Int32)">
+            <summary>
+            删除部门信息
+            </summary>
+            <param name="departmentId">部门ID</param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController">
             <summary>
             菜单信息
@@ -76,11 +89,11 @@
             <param name="r_UserInfo"></param>
             <returns>注册员工信息</returns>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.DeleteUserInfoAsync(SAICVolkswagenVehicleManagement_Model.R_UserInfo)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.DeleteUserInfoAsync(System.Int32)">
             <summary>
-            删除一条用户数据
+            删除员工信息
             </summary>
-            <param name="r_UserInfo"></param>
+            <param name="userId">员工ID</param>
             <returns></returns>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.UpdateUserInfoAsync(SAICVolkswagenVehicleManagement_Model.R_UserInfo)">

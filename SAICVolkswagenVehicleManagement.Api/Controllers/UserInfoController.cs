@@ -118,18 +118,18 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         }
 
         /// <summary>
-        /// 删除一条用户数据
+        /// 删除员工信息
         /// </summary>
-        /// <param name="r_UserInfo"></param>
+        /// <param name="userId">员工ID</param>
         /// <returns></returns>
         [HttpDelete]
-        public async Task<IActionResult> DeleteUserInfoAsync(R_UserInfo r_UserInfo)
+        public async Task<IActionResult> DeleteUserInfoAsync(int userId)
         {
             //判断传过来的值是否存在
-            if (await dbContext.r_UserInfoRepository.IsExistAsync(r_UserInfo.UserID))
+            if (await dbContext.r_UserInfoRepository.IsExistAsync(userId))
             {
                 //找到这条数据
-                R_UserInfo userInfo = await dbContext.r_UserInfoRepository.GetFirstInfo(r_UserInfo.UserID);
+                R_UserInfo userInfo = await dbContext.r_UserInfoRepository.GetFirstInfo(userId);
                 dbContext.r_UserInfoRepository.DeleteInfo(userInfo);
                 if (await dbContext.r_UserInfoRepository.SaveAsync())
                 {
