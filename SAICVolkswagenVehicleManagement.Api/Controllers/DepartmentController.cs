@@ -83,7 +83,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirstDepartmentAsync(int departmentId)
         {
-            //判断传过来的ID是否存在
+            //判断传过来的ID是否存在这条数据
             if(await dbContext.departmentInfoRepository.IsExistAsync(departmentId))
             {
                 //找到这一条数据
