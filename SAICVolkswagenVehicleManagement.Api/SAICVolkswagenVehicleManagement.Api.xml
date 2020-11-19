@@ -34,6 +34,13 @@
             <param name="departmentId">部门ID</param>
             <returns></returns>
         </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController.GetFirstDepartmentAsync(System.Int32)">
+            <summary>
+            找到一条部门信息
+            </summary>
+            <param name="departmentId">部门ID</param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController">
             <summary>
             菜单信息
@@ -72,14 +79,14 @@
             <summary>
             登录
             </summary>
-            <param name="r_UserInfo"></param>
+            <param name="r_UserInfo">用户信息</param>
             <returns></returns>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.GetFirstUserInfoAsync(System.Int32)">
             <summary>
             找到一条数据
             </summary>
-            <param name="userId"></param>
+            <param name="userId">用户ID</param>
             <returns></returns>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.InsertUserInfoAsync(SAICVolkswagenVehicleManagement_Model.R_UserInfo)">

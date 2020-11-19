@@ -74,5 +74,24 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             //没有找到这条数据
             return NotFound();
         }
+
+        /// <summary>
+        /// 找到一条部门信息
+        /// </summary>
+        /// <param name="departmentId">部门ID</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> GetFirstDepartmentAsync(int departmentId)
+        {
+            //判断传过来的ID是否存在
+            if(await dbContext.departmentInfoRepository.IsExistAsync(departmentId))
+            {
+                //找到这一条数据
+                DepartmentInfo departmentInfo = await dbContext.departmentInfoRepository.GetFirstInfo(departmentId);
+                return Ok(departmentInfo);
+            }
+            //没有找到数据
+            return NotFound();
+        }
     }
 }

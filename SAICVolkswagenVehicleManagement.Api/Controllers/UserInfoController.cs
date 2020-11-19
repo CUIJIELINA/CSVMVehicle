@@ -63,7 +63,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         /// <summary>
         /// 登录
         /// </summary>
-        /// <param name="r_UserInfo"></param>
+        /// <param name="r_UserInfo">用户信息</param>
         /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> LoginUserInfoAsync(R_UserInfo r_UserInfo)
@@ -86,7 +86,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         /// <summary>
         /// 找到一条数据
         /// </summary>
-        /// <param name="userId"></param>
+        /// <param name="userId">用户ID</param>
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> GetFirstUserInfoAsync(int userId)
