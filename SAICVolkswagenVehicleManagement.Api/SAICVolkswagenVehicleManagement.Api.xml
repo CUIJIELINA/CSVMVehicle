@@ -4,6 +4,96 @@
         <name>SAICVolkswagenVehicleManagement.Api</name>
     </assembly>
     <members>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController">
+            <summary>
+            车辆品牌信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController.GetCarBrandAsync">
+            <summary>
+            获取车辆品牌信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController.GetFirstCarBrandAsync(System.Int32)">
+            <summary>
+            根据Id获取一条信息
+            </summary>
+            <param name="carbrandId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController.InsertCarBrandAsync(SAICVolkswagenVehicleManagement_Model.CarBrandInfo)">
+            <summary>
+            添加车辆品牌信息
+            </summary>
+            <param name="carBrandInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController.DeleteCarBrandAsync(System.Int32)">
+            <summary>
+            删除数据
+            </summary>
+            <param name="carbrandId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController.UpdateCarBrandAsync(SAICVolkswagenVehicleManagement_Model.CarBrandInfo)">
+            <summary>
+            修改车辆品牌信息
+            </summary>
+            <param name="carBrandInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.CarController">
+            <summary>
+            车辆信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarController.GetCarAsync">
+            <summary>
+            获取车辆信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarController.GetFirstCarAsync(System.Int32)">
+            <summary>
+            根据Id获取对应的一条信息
+            </summary>
+            <param name="carId">车辆Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarController.DeleteCarAsync(System.Int32)">
+            <summary>
+            删除车辆信息
+            </summary>
+            <param name="carId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarController.UpdateCarAsync(SAICVolkswagenVehicleManagement_Model.CarInfo)">
+            <summary>
+            修改车辆信息
+            </summary>
+            <param name="carInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarController.InsertCarAsync(SAICVolkswagenVehicleManagement_Model.CarInfo)">
+            <summary>
+            添加车辆信息
+            </summary>
+            <param name="carInfo"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController">
             <summary>
             部门信息
@@ -39,6 +129,51 @@
             找到一条部门信息
             </summary>
             <param name="departmentId">部门ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController">
+            <summary>
+            驾驶员信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.GetDriverInfoAsync">
+            <summary>
+            获取驾驶员信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.GetFirstDriver(System.Int32)">
+            <summary>
+            找到一条驾驶员信息
+            </summary>
+            <param name="driverId">驾驶员Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.InsertDriverAsync(SAICVolkswagenVehicleManagement_Model.DriverInfo)">
+            <summary>
+            添加驾驶员
+            </summary>
+            <param name="driverInfo">驾驶员信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.DeleteDriverAsync(System.Int32)">
+            <summary>
+            删除对应的一条驾驶员信息
+            </summary>
+            <param name="driverId">驾驶员Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.UpdateDriverAsync(SAICVolkswagenVehicleManagement_Model.DriverInfo)">
+            <summary>
+            修改一条驾驶员信息
+            </summary>
+            <param name="driverInfo"></param>
             <returns></returns>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController">
@@ -107,7 +242,7 @@
             <summary>
             修改一条用户数据
             </summary>
-            <param name="r_UserInfo">反填的用户信息</param>
+            <param name="userInfo">反填的用户信息</param>
             <returns></returns>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto">

@@ -142,15 +142,23 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         /// <summary>
         /// 修改一条用户数据
         /// </summary>
-        /// <param name="r_UserInfo">反填的用户信息</param>
+        /// <param name="userInfo">反填的用户信息</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> UpdateUserInfoAsync(R_UserInfo r_UserInfo)
+        public async Task<IActionResult> UpdateUserInfoAsync(R_UserInfo userInfo)
         {
             //判断穿过来的值是否存在
-            if (await dbContext.r_UserInfoRepository.IsExistAsync(r_UserInfo.UserID))
+            if (await dbContext.r_UserInfoRepository.IsExistAsync(userInfo.UserID))
             {
                 //找到这条数据
+                R_UserInfo r_UserInfo = await dbContext.r_UserInfoRepository.GetFirstInfo(userInfo.UserID);
+                r_UserInfo.UserName = userInfo.UserName;
+                r_UserInfo.UserPassWord = userInfo.UserPassWord;
+                r_UserInfo.UserCode = userInfo.UserCode;
+                r_UserInfo.UserSex = userInfo.UserSex;
+                r_UserInfo.CreateDate = DateTime.Now;
+                r_UserInfo.Department_ID = userInfo.Department_ID;
+                r_UserInfo.E_Mail = userInfo.E_Mail;
                 dbContext.r_UserInfoRepository.UpdateInfo(r_UserInfo);
                 if (await dbContext.r_UserInfoRepository.SaveAsync())
                 {
