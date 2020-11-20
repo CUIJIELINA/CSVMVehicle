@@ -176,6 +176,51 @@
             <param name="driverInfo"></param>
             <returns></returns>
         </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController">
+            <summary>
+            设备信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.GetEquipmentAsync">
+            <summary>
+            获取设备信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.InsertEquipmentAsync(SAICVolkswagenVehicleManagement_Model.EquipmentInfo)">
+            <summary>
+            添加设备信息
+            </summary>
+            <param name="equipmentInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.GetFirstEquipmentAsync(System.Int32)">
+            <summary>
+            根据Id获取一条设备信息
+            </summary>
+            <param name="equipmentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.DeleteEquipmentAsync(System.Int32)">
+            <summary>
+            删除设备数据
+            </summary>
+            <param name="equipmentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.UpdateEquipmentAsync(SAICVolkswagenVehicleManagement_Model.EquipmentInfo)">
+            <summary>
+            修改设备信息
+            </summary>
+            <param name="equipmentInfo"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController">
             <summary>
             菜单信息
@@ -244,6 +289,11 @@
             </summary>
             <param name="userInfo">反填的用户信息</param>
             <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Models.CarAndCarBrandDto">
+            <summary>
+            车辆和车辆信息Dto
+            </summary>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto">
             <summary>

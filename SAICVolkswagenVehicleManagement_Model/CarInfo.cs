@@ -19,6 +19,6 @@ namespace SAICVolkswagenVehicleManagement_Model
         public string CarDescription { get; set; }
         public DateTime CreateDate { get; set; }
         public int UserID { get; set; }
-        public Guid EquipmentID { get; set; }
+        public int EquipmentID { get; set; }
     }
 }
