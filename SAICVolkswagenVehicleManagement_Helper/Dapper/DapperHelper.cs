@@ -55,5 +55,38 @@ namespace SAICVolkswagenVehicleManagement_Helper.Dapper
             }
             return res;
         }
+
+        /// <summary>
+        /// 单表存储过程查询
+        /// </summary>
+        /// <typeparam name="T">接收数据的类</typeparam>
+        /// <param name="TableName">要查询的表名</param>
+        /// <param name="ReFieldsStr">显示的字段</param>
+        /// <param name="OrderString">排序的字段</param>
+        /// <param name="WhereString">查询的条件</param>
+        /// <param name="PageSize">页数</param>
+        /// <param name="PageIndex">页码</param>
+        /// <returns></returns>
+        public ProcDataAndTotal<T> GetProcData<T>(string TableName,string ReFieldsStr,string OrderString,string WhereString,int PageSize,int PageIndex) where T : class, new()
+        {
+            using (IDbConnection conn = new SqlConnection() { ConnectionString = connectionString })
+            {
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@TableName", TableName);
+                param.Add("@ReFieldsStr", ReFieldsStr);
+                param.Add("@OrderString", OrderString);
+                param.Add("@WhereString", WhereString);
+                param.Add("@PageSize", PageSize);
+                param.Add("@PageIndex", PageIndex);
+                param.Add("@TotalRecord", 0, DbType.Int32, ParameterDirection.Output);
+                //返回的类
+                ProcDataAndTotal<T> dataAndTotal = new ProcDataAndTotal<T>()
+                {
+                    ProcData = conn.Query<T>("Proc_SingleTablePager", param, commandType: CommandType.StoredProcedure).ToList(),
+                    Total = param.Get<int>("@TotalRecord"),
+                };
+                return dataAndTotal;
+            }
+        }
     }
 }
