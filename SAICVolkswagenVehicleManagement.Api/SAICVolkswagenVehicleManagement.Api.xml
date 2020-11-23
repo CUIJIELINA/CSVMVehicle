@@ -238,6 +238,96 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController">
+            <summary>
+            角色信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController.GetRoleInfoAsync">
+            <summary>
+            获取角色信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController.GetFirstRoleInfoAsync(System.Int32)">
+            <summary>
+            获取一条角色信息
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController.InsertRoleInfoAsync(SAICVolkswagenVehicleManagement_Model.RoleInfo)">
+            <summary>
+            添加角色信息
+            </summary>
+            <param name="roleInfo">角色信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController.DeleteRoleInfoAsync(System.Int32)">
+            <summary>
+            删除一条角色信息
+            </summary>
+            <param name="roleId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController.UpdateRoleInfoAsync(SAICVolkswagenVehicleManagement_Model.RoleInfo)">
+            <summary>
+            修改角色信息
+            </summary>
+            <param name="roleInfo">角色信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController">
+            <summary>
+            试验地点信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController.GetTestSiteAsync">
+            <summary>
+            获取试验地点信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController.GetFirstTestSiteAsync(System.Int32)">
+            <summary>
+            获取试验地点的一条信息
+            </summary>
+            <param name="TestSiteId">试验地点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController.InsertTestSiteAsync(SAICVolkswagenVehicleManagement_Model.TestSiteInfo)">
+            <summary>
+            添加试验地点信息
+            </summary>
+            <param name="testSiteInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController.DeleteTestSiteAsync(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+            <param name="TestSiteId">试验地点ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController.UpdateTestSiteAsync(SAICVolkswagenVehicleManagement_Model.TestSiteInfo)">
+            <summary>
+            修改试验地点数据
+            </summary>
+            <param name="testSiteInfo"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController">
             <summary>
             用户信息
