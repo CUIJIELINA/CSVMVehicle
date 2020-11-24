@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace SAICVolkswagenVehicleManagement_Helper.Dapper
@@ -86,6 +87,65 @@ namespace SAICVolkswagenVehicleManagement_Helper.Dapper
                     Total = param.Get<int>("@TotalRecord"),
                 };
                 return dataAndTotal;
+            }
+        }
+
+        /// <summary>
+        /// 多表存储过程查询
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tblName"></param>
+        /// <param name="strGetFields"></param>
+        /// <param name="OrderfldName"></param>
+        /// <param name="strWhere"></param>
+        /// <param name="PageSize"></param>
+        /// <param name="PageIndex"></param>
+        /// <param name="OrderType"></param>
+        /// <returns></returns>
+        public ProcDataAndTotal<T> GetProcData<T>(string tblName,string strGetFields,string OrderfldName,string strWhere,int PageSize,int PageIndex,bool OrderType) where T : class, new()
+        {
+            using (IDbConnection conn = new SqlConnection() { ConnectionString = connectionString })
+            {
+                DynamicParameters param = new DynamicParameters();
+                param.Add("@tblName", tblName);
+                param.Add("@strGetFields", strGetFields);
+                param.Add("@OrderfldName", OrderfldName);
+                param.Add("@strWhere", strWhere);
+                param.Add("@PageSize", PageSize);
+                param.Add("@PageIndex", PageIndex);
+                param.Add("@OrderType", OrderType);
+                param.Add("@doCount", 0, DbType.Int32, ParameterDirection.Output);
+                //返回的类
+                ProcDataAndTotal<T> dataAndTotal = new ProcDataAndTotal<T>()
+                {
+                    ProcData = conn.Query<T>("Proc_MultipleTablesPager",param,commandType:CommandType.StoredProcedure).ToList(),
+                     Total = param.Get<int>("@doCount"),
+                };
+                return dataAndTotal;
+            }
+        }
+
+        /// <summary>
+        /// 反射删除
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int DeleteData<T>(T model) where T : class, new()
+        {
+            using (IDbConnection conn = new SqlConnection() { ConnectionString = connectionString })
+            {
+                Type t = model.GetType();
+                PropertyInfo[] properties = t.GetProperties();
+                string sql = $"delete from {t.Name}";
+                foreach (PropertyInfo item in properties)
+                {
+                    if(!string.IsNullOrEmpty(item.GetValue(model).ToString()))
+                    {
+                        sql += $" where {item.Name} = '{item.GetValue(model)}'";
+                    }
+                }
+                return conn.Execute(sql);
             }
         }
     }

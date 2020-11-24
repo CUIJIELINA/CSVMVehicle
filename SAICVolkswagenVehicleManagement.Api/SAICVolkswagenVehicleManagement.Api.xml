@@ -238,6 +238,34 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController.GetFirstPermissionAsync(System.Int32)">
+            <summary>
+            获取单条信息
+            </summary>
+            <param name="permissionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController.InsertPermissionAsync(SAICVolkswagenVehicleManagement_Model.Permission)">
+            <summary>
+            添加菜单信息
+            </summary>
+            <param name="permission"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController.DeletePermissionAsync(System.Int32)">
+            <summary>
+            删除菜单信息
+            </summary>
+            <param name="permissionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController.UpdatePermissionAsync(SAICVolkswagenVehicleManagement_Model.Permission)">
+            <summary>
+            修改菜单信息
+            </summary>
+            <param name="permission"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController">
             <summary>
             角色信息
