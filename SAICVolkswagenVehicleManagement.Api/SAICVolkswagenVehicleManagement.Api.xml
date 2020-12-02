@@ -221,6 +221,13 @@
             <param name="equipmentInfo"></param>
             <returns></returns>
         </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.DistributionEquipmentAsync(System.Int32)">
+            <summary>
+            分配设备信息状态
+            </summary>
+            <param name="equipmentId"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController">
             <summary>
             菜单信息
