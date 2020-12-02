@@ -228,6 +228,13 @@
             <param name="equipmentId"></param>
             <returns></returns>
         </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.FalseEquipmentDelete(System.Int32)">
+            <summary>
+            假删除
+            </summary>
+            <param name="equipmentId"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController">
             <summary>
             菜单信息
