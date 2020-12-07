@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAICVolkswagenVehicleManagement_Helper.EF_Helper;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,6 +20,7 @@ namespace SAICVolkswagenVehicleManagement_Helper
         IGPSPositioningInfoRepository gPSPositioningInfoRepository { get; }
         IRoleInfoRepository roleInfoRepository { get; }
         IRole_PermissionRepository role_PermissionRepository { get; }
+        IAbilityInfoRepository abilityInfoRepository { get; }
 
     }
 }

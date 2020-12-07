@@ -4,6 +4,51 @@
         <name>SAICVolkswagenVehicleManagement.Api</name>
     </assembly>
     <members>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController">
+            <summary>
+            驾驶员能力
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController.GetAbilityAsync">
+            <summary>
+            获取能力信息 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController.GetFirstAbilityAsync(System.Int32)">
+            <summary>
+            获取一条能力信息
+            </summary>
+            <param name="abilityId">驾驶员能力Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController.InsertAbilityAsync(SAICVolkswagenVehicleManagement_Model.AbilityInfo)">
+            <summary>
+            添加一条能力信息
+            </summary>
+            <param name="abilityInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController.DeleteAbilityAsync(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+            <param name="abilityId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController.UpdateAbilityAsync(SAICVolkswagenVehicleManagement_Model.AbilityInfo)">
+            <summary>
+            修改能力信息
+            </summary>
+            <param name="abilityInfo"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController">
             <summary>
             车辆品牌信息
@@ -232,7 +277,7 @@
             <summary>
             假删除
             </summary>
-            <param name="equipmentId"></param>
+            <param name="equipmentId">设备ID</param>
             <returns></returns>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController">

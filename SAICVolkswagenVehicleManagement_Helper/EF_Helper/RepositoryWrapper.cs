@@ -1,4 +1,5 @@
-﻿using SAICVolkswagenVehicleManagement_Model;
+﻿using SAICVolkswagenVehicleManagement_Helper.EF_Helper;
+using SAICVolkswagenVehicleManagement_Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -39,5 +40,7 @@ namespace SAICVolkswagenVehicleManagement_Helper
         public IRoleInfoRepository roleInfoRepository => new RoleInfoRepository(base_DbContext);
 
         public IRole_PermissionRepository role_PermissionRepository => new Role_PermissionRepository(base_DbContext);
+
+        public IAbilityInfoRepository abilityInfoRepository => new AbilityInfoRepository(base_DbContext);
     }
 }

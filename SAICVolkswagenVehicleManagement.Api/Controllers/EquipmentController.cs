@@ -155,7 +155,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         /// <summary>
         /// 假删除
         /// </summary>
-        /// <param name="equipmentId"></param>
+        /// <param name="equipmentId">设备ID</param>
         /// <returns></returns>
         [HttpPut]
         public async Task<IActionResult> FalseEquipmentDelete(int equipmentId)
