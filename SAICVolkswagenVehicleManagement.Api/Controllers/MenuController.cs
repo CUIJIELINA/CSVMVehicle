@@ -66,9 +66,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             dbContext.permissionRepository.CreateInfo(permission);
             if(await dbContext.permissionRepository.SaveAsync())
-            {
                 return Ok(1);
-            }
             return Ok("添加失败");
         }
 
@@ -88,9 +86,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //删除数据
                 dbContext.permissionRepository.DeleteInfo(permission);
                 if(await dbContext.permissionRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
@@ -112,9 +108,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //修改数据
                 dbContext.permissionRepository.UpdateInfo(per);
                 if(await dbContext.permissionRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();

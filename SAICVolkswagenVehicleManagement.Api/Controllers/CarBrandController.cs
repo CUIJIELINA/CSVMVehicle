@@ -67,9 +67,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             dbContext.carBrandInfoRepository.CreateInfo(carBrandInfo);
             if(await dbContext.carBrandInfoRepository.SaveAsync())
-            {
                 return Ok(1);
-            }
             return Ok("添加失败");
         }
 
@@ -89,9 +87,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //删除找到的这条数据
                 dbContext.carBrandInfoRepository.DeleteInfo(carBrandInfo);
                 if(await dbContext.carBrandInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
@@ -111,11 +107,13 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //找到这条数据
                 CarBrandInfo brandInfo = await dbContext.carBrandInfoRepository.GetFirstInfo(carBrandInfo.CarBrandID);
                 //修改数据
+                brandInfo.CarBrandCode = carBrandInfo.CarBrandCode;
+                brandInfo.CarBrandName = carBrandInfo.CarBrandName;
+                brandInfo.CarBrandDescription = carBrandInfo.CarBrandDescription;
+                brandInfo.CreateDate = DateTime.Now;
                 dbContext.carBrandInfoRepository.UpdateInfo(brandInfo);
                 if(await dbContext.carBrandInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();

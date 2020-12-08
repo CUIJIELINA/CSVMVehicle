@@ -139,6 +139,44 @@
             <param name="carInfo"></param>
             <returns></returns>
         </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.ClassController">
+            <summary>
+            班级信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.ClassController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.ClassController.GetClassAsync">
+            <summary>
+            获取班级信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.ClassController.GetFirstClassAsync(System.Int32)">
+            <summary>
+            根据Id获取到一条信息
+            </summary>
+            <param name="ClassId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.ClassController.InsertClassAsync(SAICVolkswagenVehicleManagement_Model.ClassInfo)">
+            <summary>
+            添加班级信息
+            </summary>
+            <param name="classInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.ClassController.DeleteClassAsync(System.Int32)">
+            <summary>
+            删除一条班级信息
+            </summary>
+            <param name="classId"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController">
             <summary>
             部门信息
@@ -219,6 +257,12 @@
             修改一条驾驶员信息
             </summary>
             <param name="driverInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.ImPortDriverAsync">
+            <summary>
+            从Excel表格中导入
+            </summary>
             <returns></returns>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController">

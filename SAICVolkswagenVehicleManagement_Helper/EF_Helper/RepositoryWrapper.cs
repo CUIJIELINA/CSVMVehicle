@@ -42,5 +42,7 @@ namespace SAICVolkswagenVehicleManagement_Helper
         public IRole_PermissionRepository role_PermissionRepository => new Role_PermissionRepository(base_DbContext);
 
         public IAbilityInfoRepository abilityInfoRepository => new AbilityInfoRepository(base_DbContext);
+
+        public IClassInfoRepository classInfoRepository => new ClassInfoRepository(base_DbContext);
     }
 }

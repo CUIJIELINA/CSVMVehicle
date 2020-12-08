@@ -23,5 +23,6 @@ namespace SAICVolkswagenVehicleManagement_Model
         public string IDNumber { get; set; }
         public int QuasiDriving { get; set; }
         public string DriverRemark { get; set; }
+        public int ClassID { get; set; }
     }
 }

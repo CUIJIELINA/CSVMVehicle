@@ -66,9 +66,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             dbContext.testSiteInfoRepository.CreateInfo(testSiteInfo);
             if(await dbContext.testSiteInfoRepository.SaveAsync())
-            {
                 return Ok(1);
-            }
             return Ok("注册失败");
         }
 
@@ -88,9 +86,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //删除数据
                 dbContext.testSiteInfoRepository.DeleteInfo(testSiteInfo);
                 if(await dbContext.testSiteInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
@@ -112,9 +108,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //修改数据
                 dbContext.testSiteInfoRepository.UpdateInfo(testSite);
                 if(await dbContext.testSiteInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();

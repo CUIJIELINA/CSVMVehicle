@@ -49,9 +49,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             dbContext.equipmentInfoRepository.CreateInfo(equipmentInfo);
             if (await dbContext.equipmentInfoRepository.SaveAsync())
-            {
                 return Ok(1);
-            }
             return Ok("添加失败");
         }
 
@@ -90,9 +88,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //删除数据
                 dbContext.equipmentInfoRepository.DeleteInfo(equipmentInfo);
                 if (await dbContext.equipmentInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
@@ -117,9 +113,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //修改数据
                 dbContext.equipmentInfoRepository.UpdateInfo(equipment);
                 if (await dbContext.equipmentInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
@@ -144,9 +138,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.equipmentInfoRepository.UpdateInfo(equipment);
                 //判断是否修改成功，修改成功返回1
                 if (await dbContext.equipmentInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
@@ -171,9 +163,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.equipmentInfoRepository.UpdateInfo(equipment);
                 //判断是都修改成功，修改成功返回1
                 if (await dbContext.equipmentInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();

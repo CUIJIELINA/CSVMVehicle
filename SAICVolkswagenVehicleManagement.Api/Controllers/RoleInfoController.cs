@@ -65,9 +65,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             dbContext.roleInfoRepository.CreateInfo(roleInfo);
             if(await dbContext.roleInfoRepository.SaveAsync())
-            {
                 return Ok(1);
-            }
             return Ok("注册失败");
         }
 
@@ -87,9 +85,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //删除信息
                 dbContext.roleInfoRepository.DeleteInfo(roleInfo);
                 if(await dbContext.roleInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
@@ -112,9 +108,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 role.RoleName = roleInfo.RoleName;
                 dbContext.roleInfoRepository.UpdateInfo(role);
                 if (await dbContext.roleInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();

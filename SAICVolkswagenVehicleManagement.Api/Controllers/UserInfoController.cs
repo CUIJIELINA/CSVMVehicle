@@ -75,9 +75,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 R_UserInfo userInfo = await dbContext.r_UserInfoRepository.GetFirstInfo(r_UserInfo.UserID);
                 //判断登录用户名和密码
                 if (r_UserInfo.UserName == userInfo.UserName && r_UserInfo.UserPassWord == userInfo.UserPassWord)
-                {
                     return Ok(1);
-                }
             }
             //如果没有找到说明数据不存在
             return NotFound();
@@ -111,9 +109,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             dbContext.r_UserInfoRepository.CreateInfo(r_UserInfo);
             if (await dbContext.r_UserInfoRepository.SaveAsync())
-            {
                 return Ok(1);
-            }
             return Ok("注册失败");
         }
 
@@ -132,9 +128,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 R_UserInfo userInfo = await dbContext.r_UserInfoRepository.GetFirstInfo(userId);
                 dbContext.r_UserInfoRepository.DeleteInfo(userInfo);
                 if (await dbContext.r_UserInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             return NotFound();
         }
@@ -161,9 +155,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 r_UserInfo.E_Mail = userInfo.E_Mail;
                 dbContext.r_UserInfoRepository.UpdateInfo(r_UserInfo);
                 if (await dbContext.r_UserInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在
             return NotFound();

@@ -46,9 +46,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             dbContext.departmentInfoRepository.CreateInfo(departmentInfo);
             if(await dbContext.departmentInfoRepository.SaveAsync())
-            {
                 return Ok(1);
-            }
             return Ok("添加失败");
         }
 
@@ -67,9 +65,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 DepartmentInfo departmentInfo = await dbContext.departmentInfoRepository.GetFirstInfo(departmentId);
                 dbContext.departmentInfoRepository.DeleteInfo(departmentInfo);
                 if(await dbContext.departmentInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //没有找到这条数据
             return NotFound();

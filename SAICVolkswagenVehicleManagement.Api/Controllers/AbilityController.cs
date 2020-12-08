@@ -65,9 +65,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             dbContext.abilityInfoRepository.CreateInfo(abilityInfo);
             if(await dbContext.abilityInfoRepository.SaveAsync())
-            {
                 return Ok(1);
-            }
             return Ok("添加失败");
         }
 
@@ -87,9 +85,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //删除这条数据
                 dbContext.abilityInfoRepository.DeleteInfo(abilityInfo);
                 if(await dbContext.abilityInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
@@ -112,9 +108,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 ability.DriverAbilityName = abilityInfo.DriverAbilityName;
                 dbContext.abilityInfoRepository.UpdateInfo(ability);
                 if(await dbContext.abilityInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
