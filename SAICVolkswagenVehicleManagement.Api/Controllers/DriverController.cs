@@ -14,10 +14,11 @@ using SAICVolkswagenVehicleManagement_Model;
 using Spire.Xls;
 using CellRange = Spire.Xls.CellRange;
 using Dapper;
+using SAICVolkswagenVehicleManagement.Api.Models;
 
 namespace SAICVolkswagenVehicleManagement.Api.Controllers
 {
-    
+
     /// <summary>
     /// 驾驶员信息
     /// </summary>
@@ -28,7 +29,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         //连接数据库
         private readonly string connectionString = "Data Source=192.168.1.6;Initial Catalog=CSVMVehicle;User ID=sa;PassWord=123456";
         //导入的Excel文档
-        private readonly string filePath = @"D:\Document\上汽大众\试车员试验能力档案及提升目标2.0(1).xlsx";
+        private readonly string filePath = @"D:\Document\上汽大众\试车员试验能力档案及提升目标2.0(2).xlsx";
         //上下文
         private readonly IRepositoryWrapper dbContext;
         /// <summary>
@@ -44,10 +45,41 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public  async Task<IActionResult> GetDriverInfoAsync()
+        public async Task<IActionResult> GetDriverInfoAsync()
         {
+            //驾驶员信息
             IEnumerable<DriverInfo> driverInfos = await dbContext.driverInfoRepository.GetAllInfoAsync();
-            return Ok(driverInfos.ToList());
+            //车辆信息
+            IEnumerable<CarInfo> carInfos = await dbContext.carInfoRepository.GetAllInfoAsync();
+            //品牌信息
+            IEnumerable<CarBrandInfo> carBrandInfos = await dbContext.carBrandInfoRepository.GetAllInfoAsync();
+            //班级信息
+            IEnumerable<ClassInfo> classInfos = await dbContext.classInfoRepository.GetAllInfoAsync();
+            //四表联查
+            List<DriverInfoDto> list = (from d in driverInfos.ToList()
+                                        join c in carInfos.ToList() on d.CarID equals c.CarID
+                                        join cb in carBrandInfos.ToList() on c.CarBrandID equals cb.CarBrandID
+                                        join cl in classInfos.ToList() on d.ClassID equals cl.ClassID
+                                        select new DriverInfoDto()
+                                        {
+                                            CarBrandID = cb.CarBrandID,
+                                            CarBrandName = cb.CarBrandName,
+                                            CarCode = c.CarCode,
+                                            CarID = c.CarID,
+                                            ClassID = d.ClassID,
+                                            DriverCode = d.DriverCode,
+                                            DriverID = d.DriverID,
+                                            DriverName = d.DriverName,
+                                            DriverNumber = d.DriverNumber,
+                                            DriverRemark = d.DriverRemark,
+                                            DriverSex = d.DriverSex,
+                                            DriverState = d.DriverState,
+                                            DriverType = d.DriverType,
+                                            IDNumber = d.IDNumber,
+                                            IsState = d.IsState,
+                                            ClassName = cl.ClassName
+                                        }).ToList();
+            return Ok(list);
         }
 
         /// <summary>
@@ -59,7 +91,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         public async Task<IActionResult> GetFirstDriver(int driverId)
         {
             //判断传过来的值是否存在
-            if(await dbContext.driverInfoRepository.IsExistAsync(driverId))
+            if (await dbContext.driverInfoRepository.IsExistAsync(driverId))
             {
                 //找到这一条数据
                 DriverInfo driverInfo = await dbContext.driverInfoRepository.GetFirstInfo(driverId);
@@ -78,7 +110,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         public async Task<IActionResult> InsertDriverAsync(DriverInfo driverInfo)
         {
             dbContext.driverInfoRepository.CreateInfo(driverInfo);
-            if(await dbContext.driverInfoRepository.SaveAsync())
+            if (await dbContext.driverInfoRepository.SaveAsync())
             {
                 return Ok(1);
             }
@@ -94,13 +126,13 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         public async Task<IActionResult> DeleteDriverAsync(int driverId)
         {
             //判断传过来的值是否存在
-            if(await dbContext.driverInfoRepository.IsExistAsync(driverId))
+            if (await dbContext.driverInfoRepository.IsExistAsync(driverId))
             {
                 //如果存在找到这条数据
                 DriverInfo driverInfo = await dbContext.driverInfoRepository.GetFirstInfo(driverId);
                 //删除数据
                 dbContext.driverInfoRepository.DeleteInfo(driverInfo);
-                if(await dbContext.driverInfoRepository.SaveAsync())
+                if (await dbContext.driverInfoRepository.SaveAsync())
                 {
                     return Ok(1);
                 }
@@ -118,13 +150,13 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         public async Task<IActionResult> UpdateDriverAsync(DriverInfo driverInfo)
         {
             //判断传过来的值是否存在
-            if(await dbContext.driverInfoRepository.IsExistAsync(driverInfo.DriverID))
+            if (await dbContext.driverInfoRepository.IsExistAsync(driverInfo.DriverID))
             {
                 //找到这条数据
                 DriverInfo driver = await dbContext.driverInfoRepository.GetFirstInfo(driverInfo.DriverID);
                 driver.DriverName = driverInfo.DriverName;
                 dbContext.driverInfoRepository.UpdateInfo(driver);
-                if(await dbContext.driverInfoRepository.SaveAsync())
+                if (await dbContext.driverInfoRepository.SaveAsync())
                 {
                     return Ok(1);
                 }
@@ -140,31 +172,53 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public IActionResult ImPortDriverAsync()
         {
-            Dictionary<int, object> pairs = new Dictionary<int, object>();
-            Workbook workbooks = new Workbook();
-            workbooks.LoadFromFile(filePath);
-            Worksheet worksheets = workbooks.Worksheets[0];
-            CellRange ranges = worksheets.Range["Item"];
-            CellRange range = worksheets.Range["TailTitle"];
-            for (int i = ranges.First().Row; i < range.First().Row; i++)
+            try
             {
-                if (ranges[i, ranges.First().Column].Text == null)
-                    continue;
-                pairs.Add(i,ranges[i,ranges.First().Column].Text);
+                //定义键值对
+                Dictionary<int, object> pairs = new Dictionary<int, object>();
+                //定义Workbooks
+                Workbook workbooks = new Workbook();
+                //读取文件
+                workbooks.LoadFromFile(filePath);
+                int place = 1;
+                int sheetCount = workbooks.Worksheets.Count;
+                //循环工作薄
+                for (int i = 1; i < sheetCount; i++)
+                {
+                    Worksheet worksheets = workbooks.Worksheets[i];
+                    CellRange ranges = worksheets.Range[$"Item{i}"];
+                    CellRange range = worksheets.Range[$"TailTitle{i}"];
+                    for (int j = ranges.First().Row; j < range.First().Row; j++)
+                    {
+                        ranges[j, ranges.First().Column].CollapseGroup(GroupByType.ByRows);
+                        if (ranges[j, ranges.First().Column].Text == null)
+                            continue;
+                        pairs.Add(place, ranges[j, ranges.First().Column].Text);
+                        place++;
+                    }
+                }
+                int result = 0;
+                StringBuilder stringBuilder = new StringBuilder();
+                //拼接
+                stringBuilder.Append("insert into DriverInfo(DriverName) values ");
+                using (IDbConnection connection = new SqlConnection { ConnectionString = connectionString })
+                {
+                    foreach (var item in pairs)
+                    {
+                        stringBuilder.Append($"('{item.Value}'),");
+                    }
+                    string sql = stringBuilder.ToString().Substring(0, stringBuilder.Length - 1);
+                    result = connection.Execute(sql);
+                }
+                if (result > 0)
+                    return Ok(1);
+                return Ok("导入失败");
             }
-            int res = 0;
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("insert into DriverInfo(DriverName) values ");
-            using (IDbConnection conn = new SqlConnection { ConnectionString = connectionString })
+            catch (Exception ex)
             {
-                foreach (var item in pairs)
-                    stringBuilder.Append($"('{item.Value}'),");
-                string sql = stringBuilder.ToString().Substring(0, stringBuilder.Length - 1);
-                res = conn.Execute(sql);
+                throw new Exception(ex.Message);
             }
-            if(res > 0)
-                return Ok(1);
-            return Ok("导入失败");
+            
         }
     }
 }
