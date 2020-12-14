@@ -471,11 +471,17 @@
             用户信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="F:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController._logger">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController})">
             <summary>
             构造函数
             </summary>
             <param name="_dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController.GetUserInfoAsync">
             <summary>
@@ -687,6 +693,13 @@
             <summary>
             创建日期
             </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
         </member>
         <member name="T:ResultTest.BaseResultModel">
             <summary>

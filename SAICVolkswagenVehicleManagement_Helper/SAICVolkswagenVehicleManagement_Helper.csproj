@@ -14,4 +14,8 @@
     <ProjectReference Include="..\SAICVolkswagenVehicleManagement_Model\SAICVolkswagenVehicleManagement_Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Import\" />
+  </ItemGroup>
+
 </Project>

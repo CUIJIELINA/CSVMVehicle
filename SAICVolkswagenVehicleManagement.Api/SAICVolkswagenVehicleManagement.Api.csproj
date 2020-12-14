@@ -14,6 +14,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.0" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.3" />
     <PackageReference Include="Spire.XLS" Version="10.12.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
@@ -25,6 +26,12 @@
   <ItemGroup>
     <ProjectReference Include="..\SAICVolkswagenVehicleManagement_Helper\SAICVolkswagenVehicleManagement_Helper.csproj" />
     <ProjectReference Include="..\SAICVolkswagenVehicleManagement_Model\SAICVolkswagenVehicleManagement_Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using log4net.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement.Api.Models;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
@@ -18,13 +20,21 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class UserInfoController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+
+        /// <summary>
+        /// 日志
+        /// </summary>
+        public ILogger<UserInfoController> _logger;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="_dbContext"></param>
-        public UserInfoController(IRepositoryWrapper _dbContext)
+        /// <param name="logger"></param>
+        public UserInfoController(IRepositoryWrapper _dbContext, ILogger<UserInfoController> logger)
         {
             dbContext = _dbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -57,6 +67,8 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                             UserRemark = r.UserRemark,
                             UserSex = r.UserSex
                         }).ToList();
+            //记录日志
+            _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}获取员工信息");
             return Ok(list);
         }
 
