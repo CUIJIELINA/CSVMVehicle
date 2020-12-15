@@ -401,6 +401,34 @@
             <param name="connectionId"></param>
             <returns></returns>
         </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleAndPermissionController.InsertRoleAndPermissionAsync(SAICVolkswagenVehicleManagement_Model.Role_Permission)">
+            <summary>
+            添加角色和菜单表
+            </summary>
+            <param name="role_Permission"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleAndPermissionController.DeleteRoleAndPermissionAsync(System.Int32)">
+            <summary>
+            删除一条信息
+            </summary>
+            <param name="connectionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleAndPermissionController.UpdateRoleAndPermissionAsync(SAICVolkswagenVehicleManagement_Model.Role_Permission)">
+            <summary>
+            修改选中的当前信息
+            </summary>
+            <param name="role_Permission"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleAndPermissionController.AddRoleAndPermissionAsync(SAICVolkswagenVehicleManagement.Api.Models.RoleAndPermissionDto)">
+            <summary>
+            同时添加角色和权限信息
+            </summary>
+            <param name="model">添加的所有数据</param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController">
             <summary>
             角色信息
@@ -534,6 +562,13 @@
             修改信息
             </summary>
             <param name="user_Role"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.AddUserAndRoleAsync(SAICVolkswagenVehicleManagement.Api.Models.UserAndRoleDto)">
+            <summary>
+            同时添加用户和角色关联表
+            </summary>
+            <param name="model">用户和角色信息</param>
             <returns></returns>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController">
@@ -699,6 +734,21 @@
             班级名称
             </summary>
         </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Models.RoleAndPermissionDto">
+            <summary>
+            角色和权限同时添加
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.RoleAndPermissionDto.Role_Name">
+            <summary>
+            角色名称
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.RoleAndPermissionDto.PermissionIds">
+            <summary>
+            添加的权限字符串Id
+            </summary>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto">
             <summary>
             注册员工信息类
@@ -762,6 +812,21 @@
         <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.CreateDate">
             <summary>
             创建日期
+            </summary>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Models.UserAndRoleDto">
+            <summary>
+            用户和角色关联表
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndRoleDto.User_Name">
+            <summary>
+            用户名称
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndRoleDto.RoleId">
+            <summary>
+            角色Id
             </summary>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Program.CreateHostBuilder(System.String[])">

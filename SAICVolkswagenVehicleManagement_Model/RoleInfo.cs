@@ -10,5 +10,6 @@ namespace SAICVolkswagenVehicleManagement_Model
         [Key]
         public int RoleID { get; set; }
         public string RoleName { get; set; }
+        public DateTime CreateDate { get; set; }
     }
 }

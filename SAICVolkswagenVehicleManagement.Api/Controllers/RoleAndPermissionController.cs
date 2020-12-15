@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SAICVolkswagenVehicleManagement.Api.Models;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -39,12 +40,20 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRoleAndPermissionAsync()
         {
-            //获取角色信息
-            IEnumerable<RoleInfo> roleInfos = await dbContext.roleInfoRepository.GetAllInfoAsync();
-            //获取菜单信息
-            IEnumerable<Permission> permissions = await dbContext.permissionRepository.GetAllInfoAsync();
-            //两表联查
-            return Ok();
+            try
+            {
+                //获取角色信息
+                IEnumerable<RoleInfo> roleInfos = await dbContext.roleInfoRepository.GetAllInfoAsync();
+                //获取菜单信息
+                IEnumerable<Permission> permissions = await dbContext.permissionRepository.GetAllInfoAsync();
+                //两表联查
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -55,15 +64,23 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirstRolePermissionAsync(int connectionId)
         {
-            //判断传过来的值是否存在
-            if(await dbContext.role_PermissionRepository.IsExistAsync(connectionId))
+            try
             {
-                //找到这条数据
-                Role_Permission role_Permission = await dbContext.role_PermissionRepository.GetFirstInfo(connectionId);
-                return Ok(role_Permission);
+                //判断传过来的值是否存在
+                if (await dbContext.role_PermissionRepository.IsExistAsync(connectionId))
+                {
+                    //找到这条数据
+                    Role_Permission role_Permission = await dbContext.role_PermissionRepository.GetFirstInfo(connectionId);
+                    return Ok(role_Permission);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -74,10 +91,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertRoleAndPermissionAsync(Role_Permission role_Permission)
         {
-            dbContext.role_PermissionRepository.CreateInfo(role_Permission);
-            if(await dbContext.role_PermissionRepository.SaveAsync())
-                return Ok(1);
-            return Ok("添加失败");
+            try
+            {
+                dbContext.role_PermissionRepository.CreateInfo(role_Permission);
+                if (await dbContext.role_PermissionRepository.SaveAsync())
+                    return Ok(1);
+                return Ok("添加失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -88,18 +112,26 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteRoleAndPermissionAsync(int connectionId)
         {
-            //判断传过来的值是否存在
-            if(await dbContext.role_PermissionRepository.IsExistAsync(connectionId))
+            try
             {
-                //找到这条数据
-                Role_Permission role_Permission = await dbContext.role_PermissionRepository.GetFirstInfo(connectionId);
-                //删除数据
-                dbContext.role_PermissionRepository.DeleteInfo(role_Permission);
-                if(await dbContext.role_PermissionRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的值是否存在
+                if (await dbContext.role_PermissionRepository.IsExistAsync(connectionId))
+                {
+                    //找到这条数据
+                    Role_Permission role_Permission = await dbContext.role_PermissionRepository.GetFirstInfo(connectionId);
+                    //删除数据
+                    dbContext.role_PermissionRepository.DeleteInfo(role_Permission);
+                    if (await dbContext.role_PermissionRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -110,21 +142,71 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateRoleAndPermissionAsync(Role_Permission role_Permission)
         {
-            //判断传过来的数据是否存在
-            if(await dbContext.role_PermissionRepository.IsExistAsync(role_Permission.ConnectionID))
+            try
             {
-                //找到这条数据
-                Role_Permission _Permission = await dbContext.role_PermissionRepository.GetFirstInfo(role_Permission.ConnectionID);
-                //修改数据信息
-                _Permission.RoleID = role_Permission.RoleID;
-                _Permission.PermissionID = role_Permission.PermissionID;
-                //保存当前修改的数据
-                dbContext.role_PermissionRepository.UpdateInfo(_Permission);
-                if(await dbContext.role_PermissionRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的数据是否存在
+                if (await dbContext.role_PermissionRepository.IsExistAsync(role_Permission.ConnectionID))
+                {
+                    //找到这条数据
+                    Role_Permission _Permission = await dbContext.role_PermissionRepository.GetFirstInfo(role_Permission.ConnectionID);
+                    //修改数据信息
+                    _Permission.RoleID = role_Permission.RoleID;
+                    _Permission.PermissionID = role_Permission.PermissionID;
+                    //保存当前修改的数据
+                    dbContext.role_PermissionRepository.UpdateInfo(_Permission);
+                    if (await dbContext.role_PermissionRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 同时添加角色和权限信息
+        /// </summary>
+        /// <param name="model">添加的所有数据</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> AddRoleAndPermissionAsync(RoleAndPermissionDto model)
+        {
+            try
+            {
+                DateTime date = DateTime.Now;
+                //分割获取到的权限Id，分为数组类型
+                string[] PermissionIds = model.PermissionIds.Split(',');
+                //实例化初始化器赋值
+                RoleInfo roleInfo = new RoleInfo() { RoleName = model.Role_Name, CreateDate = date };
+                //添加角色，返回受影响行数
+                dbContext.roleInfoRepository.CreateInfo(roleInfo);
+                if (await dbContext.roleInfoRepository.SaveAsync() == false)
+                    return Ok(0);
+                //获取所有的角色列表
+                IEnumerable<RoleInfo> role = await dbContext.roleInfoRepository.GetAllInfoAsync();
+                //通过时间判断刚添加进去的数据
+                RoleInfo info = role.ToList().Where(s => s.CreateDate.Equals(date)).FirstOrDefault();
+                //赋值
+                int code = info.RoleID;
+                //循环添加角色权限表
+                Role_Permission role_Permission = null;
+                for (int i = 0; i < PermissionIds.Length; i++)
+                {
+                    role_Permission = new Role_Permission() { PermissionID = int.Parse(PermissionIds[i]), RoleID = code };
+                    dbContext.role_PermissionRepository.CreateInfo(role_Permission);
+                }
+                if (await dbContext.role_PermissionRepository.SaveAsync())
+                    return Ok(1);
+                return Ok("添加失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
     }
 }

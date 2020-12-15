@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SAICVolkswagenVehicleManagement.Api.Models;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -112,12 +113,31 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //修改数据
                 dbContext.user_RoleRepository.UpdateInfo(user);
                 if(await dbContext.user_RoleRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在返回错误信息
             return NotFound();
+        }
+
+        /// <summary>
+        /// 同时添加用户和角色关联表
+        /// </summary>
+        /// <param name="model">用户和角色信息</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> AddUserAndRoleAsync(UserAndRoleDto model)
+        {
+            //获取到用户信息
+            IEnumerable<R_UserInfo> r_UserInfos = await dbContext.r_UserInfoRepository.GetAllInfoAsync();
+            //根据名称查找到这一条数据
+            R_UserInfo user = r_UserInfos.ToList().Where(s => s.UserName.Equals(model.User_Name)).FirstOrDefault();
+            if(user == null)
+                throw new Exception("没有找到这一条信息");
+            User_Role m = new User_Role() { RoleID = model.RoleId, UserID = user.UserID };
+            dbContext.user_RoleRepository.CreateInfo(m);
+            if(await dbContext.user_RoleRepository.SaveAsync())
+                return Ok(1);
+            return Ok("添加失败");
         }
     }
 }
