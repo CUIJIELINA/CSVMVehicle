@@ -218,7 +218,6 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            
         }
     }
 }

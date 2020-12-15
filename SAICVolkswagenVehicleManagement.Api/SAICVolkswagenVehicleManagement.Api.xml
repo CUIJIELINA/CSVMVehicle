@@ -376,6 +376,31 @@
             <param name="permission"></param>
             <returns></returns>
         </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.RoleAndPermissionController">
+            <summary>
+            角色和菜单信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleAndPermissionController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.RoleAndPermissionController})">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleAndPermissionController.GetRoleAndPermissionAsync">
+            <summary>
+            显示角色和菜单信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleAndPermissionController.GetFirstRolePermissionAsync(System.Int32)">
+            <summary>
+            获取一条信息
+            </summary>
+            <param name="connectionId"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController">
             <summary>
             角色信息
@@ -464,6 +489,51 @@
             修改试验地点数据
             </summary>
             <param name="testSiteInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController">
+            <summary>
+            用户和角色信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.GetUserAndRoleAsync">
+            <summary>
+            获取用户和角色信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.GetFirstUserAndRoleAsync(System.Int32)">
+            <summary>
+            获取一条信息
+            </summary>
+            <param name="connectionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.InsertUserAndRoleAsync(SAICVolkswagenVehicleManagement_Model.User_Role)">
+            <summary>
+            添加信息
+            </summary>
+            <param name="user_Role"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.DeleteUserAndRoleAsync(System.Int32)">
+            <summary>
+            删除一条信息
+            </summary>
+            <param name="connectionId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.UpdateUserAndRoleAsync(SAICVolkswagenVehicleManagement_Model.User_Role)">
+            <summary>
+            修改信息
+            </summary>
+            <param name="user_Role"></param>
             <returns></returns>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.UserInfoController">
