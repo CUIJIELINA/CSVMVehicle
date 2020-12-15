@@ -184,7 +184,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //添加角色，返回受影响行数
                 dbContext.roleInfoRepository.CreateInfo(roleInfo);
                 if (await dbContext.roleInfoRepository.SaveAsync() == false)
-                    return Ok(0);
+                    throw new Exception("没有添加成功");
                 //获取所有的角色列表
                 IEnumerable<RoleInfo> role = await dbContext.roleInfoRepository.GetAllInfoAsync();
                 //通过时间判断刚添加进去的数据
