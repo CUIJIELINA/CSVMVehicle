@@ -272,6 +272,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.DriverSchedulingAsync(SAICVolkswagenVehicleManagement.Api.Models.DriverAndCarDto)">
+            <summary>
+            驾驶员排班
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController">
             <summary>
             设备信息
@@ -632,6 +639,36 @@
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.CarAndCarBrandDto">
             <summary>
             车辆和车辆信息Dto
+            </summary>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Models.DriverAndCarDto">
+            <summary>
+            驾驶员和车辆信息
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.DriverAndCarDto.DriverID">
+            <summary>
+            驾驶员Id
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.DriverAndCarDto.DriverCode">
+            <summary>
+            驾驶员工号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.DriverAndCarDto.DriverName">
+            <summary>
+            驾驶员姓名
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.DriverAndCarDto.CarID">
+            <summary>
+            车辆Id
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.DriverAndCarDto.IsUse">
+            <summary>
+            是否使用该车辆
             </summary>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.DriverInfoDto">

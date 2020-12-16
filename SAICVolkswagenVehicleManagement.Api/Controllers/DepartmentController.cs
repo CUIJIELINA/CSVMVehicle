@@ -33,8 +33,15 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDepartmentAsync()
         {
-            IEnumerable<DepartmentInfo> departmentInfos = await dbContext.departmentInfoRepository.GetAllInfoAsync();
-            return Ok(departmentInfos.ToList());
+            try
+            {
+                IEnumerable<DepartmentInfo> departmentInfos = await dbContext.departmentInfoRepository.GetAllInfoAsync();
+                return Ok(departmentInfos.ToList());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -44,10 +51,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertDepartmentAsync(DepartmentInfo departmentInfo)
         {
-            dbContext.departmentInfoRepository.CreateInfo(departmentInfo);
-            if(await dbContext.departmentInfoRepository.SaveAsync())
-                return Ok(1);
-            return Ok("添加失败");
+            try
+            {
+                dbContext.departmentInfoRepository.CreateInfo(departmentInfo);
+                if (await dbContext.departmentInfoRepository.SaveAsync())
+                    return Ok(1);
+                return Ok("添加失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -58,17 +72,24 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteDepartmentAsync(int departmentId)
         {
-            //首先查找一条数据
-            if(await dbContext.departmentInfoRepository.IsExistAsync(departmentId))
+            try
             {
-                //找出对应的一条数据
-                DepartmentInfo departmentInfo = await dbContext.departmentInfoRepository.GetFirstInfo(departmentId);
-                dbContext.departmentInfoRepository.DeleteInfo(departmentInfo);
-                if(await dbContext.departmentInfoRepository.SaveAsync())
-                    return Ok(1);
+                //首先查找一条数据
+                if (await dbContext.departmentInfoRepository.IsExistAsync(departmentId))
+                {
+                    //找出对应的一条数据
+                    DepartmentInfo departmentInfo = await dbContext.departmentInfoRepository.GetFirstInfo(departmentId);
+                    dbContext.departmentInfoRepository.DeleteInfo(departmentInfo);
+                    if (await dbContext.departmentInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //没有找到这条数据
+                return NotFound();
             }
-            //没有找到这条数据
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -79,15 +100,22 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirstDepartmentAsync(int departmentId)
         {
-            //判断传过来的ID是否存在这条数据
-            if(await dbContext.departmentInfoRepository.IsExistAsync(departmentId))
+            try
             {
-                //找到这一条数据
-                DepartmentInfo departmentInfo = await dbContext.departmentInfoRepository.GetFirstInfo(departmentId);
-                return Ok(departmentInfo);
+                //判断传过来的ID是否存在这条数据
+                if (await dbContext.departmentInfoRepository.IsExistAsync(departmentId))
+                {
+                    //找到这一条数据
+                    DepartmentInfo departmentInfo = await dbContext.departmentInfoRepository.GetFirstInfo(departmentId);
+                    return Ok(departmentInfo);
+                }
+                //没有找到数据
+                return NotFound();
             }
-            //没有找到数据
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

@@ -33,8 +33,15 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRoleInfoAsync()
         {
-            IEnumerable<RoleInfo> roleInfos = await dbContext.roleInfoRepository.GetAllInfoAsync();
-            return Ok(roleInfos.ToList());
+            try
+            {
+                IEnumerable<RoleInfo> roleInfos = await dbContext.roleInfoRepository.GetAllInfoAsync();
+                return Ok(roleInfos.ToList());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -45,14 +52,21 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirstRoleInfoAsync(int roleId)
         {
-            //判断传过来的ID是否存在
-            if(await dbContext.roleInfoRepository.IsExistAsync(roleId))
+            try
             {
-                //找到这条数据
-                RoleInfo roleInfo = await dbContext.roleInfoRepository.GetFirstInfo(roleId);
+                //判断传过来的ID是否存在
+                if (await dbContext.roleInfoRepository.IsExistAsync(roleId))
+                {
+                    //找到这条数据
+                    RoleInfo roleInfo = await dbContext.roleInfoRepository.GetFirstInfo(roleId);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -63,10 +77,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertRoleInfoAsync(RoleInfo roleInfo)
         {
-            dbContext.roleInfoRepository.CreateInfo(roleInfo);
-            if(await dbContext.roleInfoRepository.SaveAsync())
-                return Ok(1);
-            return Ok("注册失败");
+            try
+            {
+                dbContext.roleInfoRepository.CreateInfo(roleInfo);
+                if (await dbContext.roleInfoRepository.SaveAsync())
+                    return Ok(1);
+                return Ok("注册失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -77,18 +98,25 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteRoleInfoAsync(int roleId)
         {
-            //判断传过来的ID是否存在
-            if(await dbContext.roleInfoRepository.IsExistAsync(roleId))
+            try
             {
-                //找到这条数据
-                RoleInfo roleInfo = await dbContext.roleInfoRepository.GetFirstInfo(roleId);
-                //删除信息
-                dbContext.roleInfoRepository.DeleteInfo(roleInfo);
-                if(await dbContext.roleInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的ID是否存在
+                if (await dbContext.roleInfoRepository.IsExistAsync(roleId))
+                {
+                    //找到这条数据
+                    RoleInfo roleInfo = await dbContext.roleInfoRepository.GetFirstInfo(roleId);
+                    //删除信息
+                    dbContext.roleInfoRepository.DeleteInfo(roleInfo);
+                    if (await dbContext.roleInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -99,19 +127,26 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateRoleInfoAsync(RoleInfo roleInfo)
         {
-            //判断传过来的信息是否存在
-            if (await dbContext.roleInfoRepository.IsExistAsync(roleInfo.RoleID))
+            try
             {
-                //找到这条数据
-                RoleInfo role = await dbContext.roleInfoRepository.GetFirstInfo(roleInfo.RoleID);
-                //修改数据
-                role.RoleName = roleInfo.RoleName;
-                dbContext.roleInfoRepository.UpdateInfo(role);
-                if (await dbContext.roleInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的信息是否存在
+                if (await dbContext.roleInfoRepository.IsExistAsync(roleInfo.RoleID))
+                {
+                    //找到这条数据
+                    RoleInfo role = await dbContext.roleInfoRepository.GetFirstInfo(roleInfo.RoleID);
+                    //修改数据
+                    role.RoleName = roleInfo.RoleName;
+                    dbContext.roleInfoRepository.UpdateInfo(role);
+                    if (await dbContext.roleInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

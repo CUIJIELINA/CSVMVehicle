@@ -34,9 +34,16 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetEquipmentAsync()
         {
-            IEnumerable<EquipmentInfo> equipmentInfos = await dbContext.equipmentInfoRepository.GetAllInfoAsync();
-            List<EquipmentInfo> list = equipmentInfos.Where(s => s.IsDelete == 1).ToList();
-            return Ok(list);
+            try
+            {
+                IEnumerable<EquipmentInfo> equipmentInfos = await dbContext.equipmentInfoRepository.GetAllInfoAsync();
+                List<EquipmentInfo> list = equipmentInfos.Where(s => s.IsDelete == 1).ToList();
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -47,10 +54,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertEquipmentAsync(EquipmentInfo equipmentInfo)
         {
-            dbContext.equipmentInfoRepository.CreateInfo(equipmentInfo);
-            if (await dbContext.equipmentInfoRepository.SaveAsync())
-                return Ok(1);
-            return Ok("添加失败");
+            try
+            {
+                dbContext.equipmentInfoRepository.CreateInfo(equipmentInfo);
+                if (await dbContext.equipmentInfoRepository.SaveAsync())
+                    return Ok(1);
+                return Ok("添加失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -61,15 +75,22 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirstEquipmentAsync(int equipmentId)
         {
-            //判断传过来的值是否存在
-            if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentId))
+            try
             {
-                //找到一条数据
-                EquipmentInfo equipmentInfo = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentId);
-                return Ok(equipmentInfo);
+                //判断传过来的值是否存在
+                if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentId))
+                {
+                    //找到一条数据
+                    EquipmentInfo equipmentInfo = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentId);
+                    return Ok(equipmentInfo);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -80,18 +101,25 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteEquipmentAsync(int equipmentId)
         {
-            //判断是否存在
-            if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentId))
+            try
             {
-                //找到这条数据
-                EquipmentInfo equipmentInfo = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentId);
-                //删除数据
-                dbContext.equipmentInfoRepository.DeleteInfo(equipmentInfo);
-                if (await dbContext.equipmentInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断是否存在
+                if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentId))
+                {
+                    //找到这条数据
+                    EquipmentInfo equipmentInfo = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentId);
+                    //删除数据
+                    dbContext.equipmentInfoRepository.DeleteInfo(equipmentInfo);
+                    if (await dbContext.equipmentInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -102,21 +130,28 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateEquipmentAsync(EquipmentInfo equipmentInfo)
         {
-            //判断信息是否存在
-            if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentInfo.EquipmentID))
+            try
             {
-                //找到数据
-                EquipmentInfo equipment = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentInfo.EquipmentID);
-                //修改其中的字段
-                equipment.EquipmentName = equipmentInfo.EquipmentName;
-                equipment.EquipmentCode = equipmentInfo.EquipmentCode;
-                //修改数据
-                dbContext.equipmentInfoRepository.UpdateInfo(equipment);
-                if (await dbContext.equipmentInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断信息是否存在
+                if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentInfo.EquipmentID))
+                {
+                    //找到数据
+                    EquipmentInfo equipment = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentInfo.EquipmentID);
+                    //修改其中的字段
+                    equipment.EquipmentName = equipmentInfo.EquipmentName;
+                    equipment.EquipmentCode = equipmentInfo.EquipmentCode;
+                    //修改数据
+                    dbContext.equipmentInfoRepository.UpdateInfo(equipment);
+                    if (await dbContext.equipmentInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -127,21 +162,28 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> DistributionEquipmentAsync(int equipmentId)
         {
-            //判断传过来的数据是否存在
-            if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentId))
+            try
             {
-                //找到这条数据
-                EquipmentInfo equipment = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentId);
-                //使用三目运算符修改数据
-                equipment.EquipmentState = equipment.EquipmentState != 1 ? equipment.EquipmentState += 1 : equipment.EquipmentState -= 1;
-                //执行修改数据
-                dbContext.equipmentInfoRepository.UpdateInfo(equipment);
-                //判断是否修改成功，修改成功返回1
-                if (await dbContext.equipmentInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的数据是否存在
+                if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentId))
+                {
+                    //找到这条数据
+                    EquipmentInfo equipment = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentId);
+                    //使用三目运算符修改数据
+                    equipment.EquipmentState = equipment.EquipmentState != 1 ? equipment.EquipmentState += 1 : equipment.EquipmentState -= 1;
+                    //执行修改数据
+                    dbContext.equipmentInfoRepository.UpdateInfo(equipment);
+                    //判断是否修改成功，修改成功返回1
+                    if (await dbContext.equipmentInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -152,21 +194,28 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> FalseEquipmentDelete(int equipmentId)
         {
-            //判断传过来的数据是否存在
-            if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentId))
+            try
             {
-                //找到这条数据
-                EquipmentInfo equipment = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentId);
-                //使用三目运算符修改数据
-                equipment.IsDelete = equipment.IsDelete != 1 ? equipment.IsDelete += 1 : equipment.IsDelete -= 1;
-                //执行修改数据
-                dbContext.equipmentInfoRepository.UpdateInfo(equipment);
-                //判断是都修改成功，修改成功返回1
-                if (await dbContext.equipmentInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的数据是否存在
+                if (await dbContext.equipmentInfoRepository.IsExistAsync(equipmentId))
+                {
+                    //找到这条数据
+                    EquipmentInfo equipment = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentId);
+                    //使用三目运算符修改数据
+                    equipment.IsDelete = equipment.IsDelete != 1 ? equipment.IsDelete += 1 : equipment.IsDelete -= 1;
+                    //执行修改数据
+                    dbContext.equipmentInfoRepository.UpdateInfo(equipment);
+                    //判断是都修改成功，修改成功返回1
+                    if (await dbContext.equipmentInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

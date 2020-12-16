@@ -111,9 +111,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             dbContext.driverInfoRepository.CreateInfo(driverInfo);
             if (await dbContext.driverInfoRepository.SaveAsync())
-            {
                 return Ok(1);
-            }
             return Ok("添加失败");
         }
 
@@ -133,9 +131,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //删除数据
                 dbContext.driverInfoRepository.DeleteInfo(driverInfo);
                 if (await dbContext.driverInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果不存在，返回错误信息
             return NotFound();
@@ -157,9 +153,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 driver.DriverName = driverInfo.DriverName;
                 dbContext.driverInfoRepository.UpdateInfo(driver);
                 if (await dbContext.driverInfoRepository.SaveAsync())
-                {
                     return Ok(1);
-                }
             }
             //如果没有找到返回错误信息
             return NotFound();
@@ -218,6 +212,38 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 驾驶员排班
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> DriverSchedulingAsync(DriverAndCarDto model)
+        {
+            //获取驾驶员信息
+            IEnumerable<DriverInfo> driverInfos = await dbContext.driverInfoRepository.GetAllInfoAsync();
+            //获取车辆信息
+            IEnumerable<CarInfo> carInfos = await dbContext.carInfoRepository.GetAllInfoAsync();
+            //两表联查
+            var list = from d in driverInfos.ToList()
+                       join c in carInfos.ToList() on d.CarID equals c.CarID
+                       select new DriverAndCarDto()
+                       {
+                           CarID = c.CarID,
+                           DriverCode = d.DriverCode,
+                           DriverID = d.DriverID,
+                           DriverName = d.DriverName,
+                           IsUse = c.IsUse
+                       };
+            //根据传过来的值判断这条信息是否存在
+            DriverInfo driver = driverInfos.ToList().Where(s => s.DriverID.Equals(model.DriverID)).FirstOrDefault();
+            CarInfo car = carInfos.ToList().Where(s => s.CarID.Equals(model.CarID)).FirstOrDefault();
+            if(driver == null && car == null)
+                throw new Exception("找不到数据");
+            //驾驶员和车辆随机匹配
+            return Ok();
         }
     }
 }

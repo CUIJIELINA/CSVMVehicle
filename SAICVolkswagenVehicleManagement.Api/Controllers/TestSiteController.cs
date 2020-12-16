@@ -33,8 +33,15 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTestSiteAsync()
         {
-            IEnumerable<TestSiteInfo> testSiteInfos = await dbContext.testSiteInfoRepository.GetAllInfoAsync();
-            return Ok(testSiteInfos.ToList());
+            try
+            {
+                IEnumerable<TestSiteInfo> testSiteInfos = await dbContext.testSiteInfoRepository.GetAllInfoAsync();
+                return Ok(testSiteInfos.ToList());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -45,15 +52,22 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirstTestSiteAsync(int TestSiteId)
         {
-            //判断传过来的值是否存在
-            if(await dbContext.testSiteInfoRepository.IsExistAsync(TestSiteId))
+            try
             {
-                //找到这条数据
-                TestSiteInfo testSiteInfo = await dbContext.testSiteInfoRepository.GetFirstInfo(TestSiteId);
-                return Ok(testSiteInfo);
+                //判断传过来的值是否存在
+                if (await dbContext.testSiteInfoRepository.IsExistAsync(TestSiteId))
+                {
+                    //找到这条数据
+                    TestSiteInfo testSiteInfo = await dbContext.testSiteInfoRepository.GetFirstInfo(TestSiteId);
+                    return Ok(testSiteInfo);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -64,10 +78,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertTestSiteAsync(TestSiteInfo testSiteInfo)
         {
-            dbContext.testSiteInfoRepository.CreateInfo(testSiteInfo);
-            if(await dbContext.testSiteInfoRepository.SaveAsync())
-                return Ok(1);
-            return Ok("注册失败");
+            try
+            {
+                dbContext.testSiteInfoRepository.CreateInfo(testSiteInfo);
+                if (await dbContext.testSiteInfoRepository.SaveAsync())
+                    return Ok(1);
+                return Ok("注册失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -78,18 +99,25 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteTestSiteAsync(int TestSiteId)
         {
-            //判断传过来的数据是否存在
-            if(await dbContext.testSiteInfoRepository.IsExistAsync(TestSiteId))
+            try
             {
-                //找到这条数据
-                TestSiteInfo testSiteInfo = await dbContext.testSiteInfoRepository.GetFirstInfo(TestSiteId);
-                //删除数据
-                dbContext.testSiteInfoRepository.DeleteInfo(testSiteInfo);
-                if(await dbContext.testSiteInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的数据是否存在
+                if (await dbContext.testSiteInfoRepository.IsExistAsync(TestSiteId))
+                {
+                    //找到这条数据
+                    TestSiteInfo testSiteInfo = await dbContext.testSiteInfoRepository.GetFirstInfo(TestSiteId);
+                    //删除数据
+                    dbContext.testSiteInfoRepository.DeleteInfo(testSiteInfo);
+                    if (await dbContext.testSiteInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -100,18 +128,25 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateTestSiteAsync(TestSiteInfo testSiteInfo)
         {
-            //判断传过来的信息是否存在
-            if(await dbContext.testSiteInfoRepository.IsExistAsync(testSiteInfo.TestSiteID))
+            try
             {
-                //找到这条数据
-                TestSiteInfo testSite = await dbContext.testSiteInfoRepository.GetFirstInfo(testSiteInfo.TestSiteID);
-                //修改数据
-                dbContext.testSiteInfoRepository.UpdateInfo(testSite);
-                if(await dbContext.testSiteInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的信息是否存在
+                if (await dbContext.testSiteInfoRepository.IsExistAsync(testSiteInfo.TestSiteID))
+                {
+                    //找到这条数据
+                    TestSiteInfo testSite = await dbContext.testSiteInfoRepository.GetFirstInfo(testSiteInfo.TestSiteID);
+                    //修改数据
+                    dbContext.testSiteInfoRepository.UpdateInfo(testSite);
+                    if (await dbContext.testSiteInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

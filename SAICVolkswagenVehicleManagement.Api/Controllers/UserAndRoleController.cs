@@ -35,11 +35,18 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUserAndRoleAsync()
         {
-            //获取用户信息
-            IEnumerable<R_UserInfo> userInfos = await dbContext.r_UserInfoRepository.GetAllInfoAsync();
-            //获取角色信息
-            IEnumerable<RoleInfo> roleInfos = await dbContext.roleInfoRepository.GetAllInfoAsync();
-            return Ok();
+            try
+            {
+                //获取用户信息
+                IEnumerable<R_UserInfo> userInfos = await dbContext.r_UserInfoRepository.GetAllInfoAsync();
+                //获取角色信息
+                IEnumerable<RoleInfo> roleInfos = await dbContext.roleInfoRepository.GetAllInfoAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -50,15 +57,22 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirstUserAndRoleAsync(int connectionId)
         {
-            //判断传过来的值是否存在
-            if(await dbContext.user_RoleRepository.IsExistAsync(connectionId))
+            try
             {
-                //找到这条数据
-                User_Role user_Role = await dbContext.user_RoleRepository.GetFirstInfo(connectionId);
-                return Ok(user_Role);
+                //判断传过来的值是否存在
+                if (await dbContext.user_RoleRepository.IsExistAsync(connectionId))
+                {
+                    //找到这条数据
+                    User_Role user_Role = await dbContext.user_RoleRepository.GetFirstInfo(connectionId);
+                    return Ok(user_Role);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -69,10 +83,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertUserAndRoleAsync(User_Role user_Role)
         {
-            dbContext.user_RoleRepository.CreateInfo(user_Role);
-            if(await dbContext.user_RoleRepository.SaveAsync())
-                return Ok(1);
-            return Ok("添加失败");
+            try
+            {
+                dbContext.user_RoleRepository.CreateInfo(user_Role);
+                if (await dbContext.user_RoleRepository.SaveAsync())
+                    return Ok(1);
+                return Ok("添加失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -83,18 +104,25 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteUserAndRoleAsync(int connectionId)
         {
-            //判断传过来的值是否存在
-            if(await dbContext.user_RoleRepository.IsExistAsync(connectionId))
+            try
             {
-                //找到这条数据
-                User_Role user_Role = await dbContext.user_RoleRepository.GetFirstInfo(connectionId);
-                //删除数据
-                dbContext.user_RoleRepository.DeleteInfo(user_Role);
-                if(await dbContext.user_RoleRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的值是否存在
+                if (await dbContext.user_RoleRepository.IsExistAsync(connectionId))
+                {
+                    //找到这条数据
+                    User_Role user_Role = await dbContext.user_RoleRepository.GetFirstInfo(connectionId);
+                    //删除数据
+                    dbContext.user_RoleRepository.DeleteInfo(user_Role);
+                    if (await dbContext.user_RoleRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -105,18 +133,25 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUserAndRoleAsync(User_Role user_Role)
         {
-            //判断传过来的数据是否存在
-            if(await dbContext.user_RoleRepository.IsExistAsync(user_Role.ConnectionID))
+            try
             {
-                //找到这条数据
-                User_Role user = await dbContext.user_RoleRepository.GetFirstInfo(user_Role.ConnectionID);
-                //修改数据
-                dbContext.user_RoleRepository.UpdateInfo(user);
-                if(await dbContext.user_RoleRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的数据是否存在
+                if (await dbContext.user_RoleRepository.IsExistAsync(user_Role.ConnectionID))
+                {
+                    //找到这条数据
+                    User_Role user = await dbContext.user_RoleRepository.GetFirstInfo(user_Role.ConnectionID);
+                    //修改数据
+                    dbContext.user_RoleRepository.UpdateInfo(user);
+                    if (await dbContext.user_RoleRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -127,17 +162,24 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUserAndRoleAsync(UserAndRoleDto model)
         {
-            //获取到用户信息
-            IEnumerable<R_UserInfo> r_UserInfos = await dbContext.r_UserInfoRepository.GetAllInfoAsync();
-            //根据名称查找到这一条数据
-            R_UserInfo user = r_UserInfos.ToList().Where(s => s.UserName.Equals(model.User_Name)).FirstOrDefault();
-            if(user == null)
-                throw new Exception("没有找到这一条信息");
-            User_Role m = new User_Role() { RoleID = model.RoleId, UserID = user.UserID };
-            dbContext.user_RoleRepository.CreateInfo(m);
-            if(await dbContext.user_RoleRepository.SaveAsync())
-                return Ok(1);
-            return Ok("添加失败");
+            try
+            {
+                //获取到用户信息
+                IEnumerable<R_UserInfo> r_UserInfos = await dbContext.r_UserInfoRepository.GetAllInfoAsync();
+                //根据名称查找到这一条数据
+                R_UserInfo user = r_UserInfos.ToList().Where(s => s.UserName.Equals(model.User_Name)).FirstOrDefault();
+                if (user == null)
+                    throw new Exception("没有找到这一条信息");
+                User_Role m = new User_Role() { RoleID = model.RoleId, UserID = user.UserID };
+                dbContext.user_RoleRepository.CreateInfo(m);
+                if (await dbContext.user_RoleRepository.SaveAsync())
+                    return Ok(1);
+                return Ok("添加失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

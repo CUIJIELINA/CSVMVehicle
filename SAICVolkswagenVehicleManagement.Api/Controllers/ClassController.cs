@@ -33,8 +33,15 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetClassAsync()
         {
-            IEnumerable<ClassInfo> classInfos = await dbContext.classInfoRepository.GetAllInfoAsync();
-            return Ok(classInfos.ToList());
+            try
+            {
+                IEnumerable<ClassInfo> classInfos = await dbContext.classInfoRepository.GetAllInfoAsync();
+                return Ok(classInfos.ToList());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -45,15 +52,22 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirstClassAsync(int ClassId)
         {
-            //判断传过来的值是否存在
-            if(await dbContext.classInfoRepository.IsExistAsync(ClassId))
+            try
             {
-                //找到这条数据
-                ClassInfo classInfo = await dbContext.classInfoRepository.GetFirstInfo(ClassId);
-                return Ok(classInfo);
+                //判断传过来的值是否存在
+                if (await dbContext.classInfoRepository.IsExistAsync(ClassId))
+                {
+                    //找到这条数据
+                    ClassInfo classInfo = await dbContext.classInfoRepository.GetFirstInfo(ClassId);
+                    return Ok(classInfo);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -64,10 +78,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertClassAsync(ClassInfo classInfo)
         {
-            dbContext.classInfoRepository.CreateInfo(classInfo);
-            if(await dbContext.classInfoRepository.SaveAsync())
-                return Ok(1);
-            return Ok("添加失败");
+            try
+            {
+                dbContext.classInfoRepository.CreateInfo(classInfo);
+                if (await dbContext.classInfoRepository.SaveAsync())
+                    return Ok(1);
+                return Ok("添加失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -78,18 +99,25 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteClassAsync(int classId)
         {
-            //判断传过来的值是否存在
-            if (await dbContext.classInfoRepository.IsExistAsync(classId))
+            try
             {
-                //找到这条数据
-                ClassInfo classInfo = await dbContext.classInfoRepository.GetFirstInfo(classId);
-                //删除数据
-                dbContext.classInfoRepository.DeleteInfo(classInfo);
-                if (await dbContext.classInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的值是否存在
+                if (await dbContext.classInfoRepository.IsExistAsync(classId))
+                {
+                    //找到这条数据
+                    ClassInfo classInfo = await dbContext.classInfoRepository.GetFirstInfo(classId);
+                    //删除数据
+                    dbContext.classInfoRepository.DeleteInfo(classInfo);
+                    if (await dbContext.classInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -100,19 +128,26 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateClassAsync(ClassInfo classInfo)
         {
-            //判断传过来的值是否存在
-            if(await dbContext.classInfoRepository.IsExistAsync(classInfo.ClassID))
+            try
             {
-                //找到这条数据
-                ClassInfo info = await dbContext.classInfoRepository.GetFirstInfo(classInfo.ClassID);
-                //修改数据
-                info.ClassName = classInfo.ClassName;
-                dbContext.classInfoRepository.UpdateInfo(info);
-                if (await dbContext.classInfoRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的值是否存在
+                if (await dbContext.classInfoRepository.IsExistAsync(classInfo.ClassID))
+                {
+                    //找到这条数据
+                    ClassInfo info = await dbContext.classInfoRepository.GetFirstInfo(classInfo.ClassID);
+                    //修改数据
+                    info.ClassName = classInfo.ClassName;
+                    dbContext.classInfoRepository.UpdateInfo(info);
+                    if (await dbContext.classInfoRepository.SaveAsync())
+                        return Ok(1);
+                }
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
