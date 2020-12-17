@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -17,13 +18,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class DepartmentController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<DepartmentController> _logger;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public DepartmentController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public DepartmentController(IRepositoryWrapper dbContext,ILogger<DepartmentController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,6 +41,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             try
             {
                 IEnumerable<DepartmentInfo> departmentInfos = await dbContext.departmentInfoRepository.GetAllInfoAsync();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示部门信息");
                 return Ok(departmentInfos.ToList());
             }
             catch (Exception ex)
@@ -56,6 +62,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.departmentInfoRepository.CreateInfo(departmentInfo);
                 if (await dbContext.departmentInfoRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加部门信息");
                 return Ok("添加失败");
             }
             catch (Exception ex)
@@ -83,6 +90,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.departmentInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}删除部门信息");
                 //没有找到这条数据
                 return NotFound();
             }
@@ -109,6 +117,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     DepartmentInfo departmentInfo = await dbContext.departmentInfoRepository.GetFirstInfo(departmentId);
                     return Ok(departmentInfo);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示一条部门信息");
                 //没有找到数据
                 return NotFound();
             }

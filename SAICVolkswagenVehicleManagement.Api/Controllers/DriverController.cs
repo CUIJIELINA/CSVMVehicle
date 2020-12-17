@@ -222,28 +222,40 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> DriverSchedulingAsync(DriverAndCarDto model)
         {
-            //获取驾驶员信息
-            IEnumerable<DriverInfo> driverInfos = await dbContext.driverInfoRepository.GetAllInfoAsync();
-            //获取车辆信息
-            IEnumerable<CarInfo> carInfos = await dbContext.carInfoRepository.GetAllInfoAsync();
-            //两表联查
-            var list = from d in driverInfos.ToList()
-                       join c in carInfos.ToList() on d.CarID equals c.CarID
-                       select new DriverAndCarDto()
-                       {
-                           CarID = c.CarID,
-                           DriverCode = d.DriverCode,
-                           DriverID = d.DriverID,
-                           DriverName = d.DriverName,
-                           IsUse = c.IsUse
-                       };
-            //根据传过来的值判断这条信息是否存在
-            DriverInfo driver = driverInfos.ToList().Where(s => s.DriverID.Equals(model.DriverID)).FirstOrDefault();
-            CarInfo car = carInfos.ToList().Where(s => s.CarID.Equals(model.CarID)).FirstOrDefault();
-            if(driver == null && car == null)
-                throw new Exception("找不到数据");
-            //驾驶员和车辆随机匹配
-            return Ok();
+            try
+            {
+                //获取驾驶员信息
+                IEnumerable<DriverInfo> driverInfos = await dbContext.driverInfoRepository.GetAllInfoAsync();
+                //获取车辆信息
+                IEnumerable<CarInfo> carInfos = await dbContext.carInfoRepository.GetAllInfoAsync();
+                //两表联查
+                var list = from d in driverInfos.ToList()
+                           join c in carInfos.ToList() on d.CarID equals c.CarID
+                           select new DriverAndCarDto()
+                           {
+                               CarID = c.CarID,
+                               DriverCode = d.DriverCode,
+                               DriverID = d.DriverID,
+                               DriverName = d.DriverName,
+                               IsUse = c.IsUse
+                           };
+                //根据传过来的值判断这条信息是否存在
+                DriverInfo driver = driverInfos.ToList().Where(s => s.DriverID.Equals(model.DriverID)).FirstOrDefault();
+                CarInfo car = carInfos.ToList().Where(s => s.CarID.Equals(model.CarID)).FirstOrDefault();
+                if (driver == null)
+                    throw new Exception("找不到驾驶员数据");
+                if (car == null)
+                    throw new Exception("找不到车辆数据");
+                //驾驶员和车辆随机匹配
+                //根据车辆是否被使用查找出这条数据,这是一辆空闲车辆
+                var IsUseCar = carInfos.ToList().Where(s => s.IsUse.Equals(0)).FirstOrDefault();
+                //给驾驶员分配空闲的车辆
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

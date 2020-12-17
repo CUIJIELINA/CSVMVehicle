@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -17,13 +18,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class CarController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<CarController> _logger;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public CarController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public CarController(IRepositoryWrapper dbContext,ILogger<CarController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -40,7 +45,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //获取车辆品牌信息
                 IEnumerable<CarBrandInfo> carBrandInfos = await dbContext.carBrandInfoRepository.GetAllInfoAsync();
                 //两表联查
-
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示车辆信息");
                 return Ok();
             }
             catch (Exception ex)
@@ -66,6 +71,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     CarInfo carInfo = await dbContext.carInfoRepository.GetFirstInfo(carId);
                     return Ok(carInfo);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示一条车辆信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -95,6 +101,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.carInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}删除车辆信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -124,6 +131,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.carInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}修改车辆信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -146,6 +154,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.carInfoRepository.CreateInfo(carInfo);
                 if (await dbContext.carInfoRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加车辆信息");
                 return Ok("添加失败");
             }
             catch (Exception ex)

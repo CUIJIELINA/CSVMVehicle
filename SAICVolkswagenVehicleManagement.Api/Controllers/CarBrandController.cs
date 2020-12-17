@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -17,14 +18,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class CarBrandController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<CarBrandController> _logger;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public CarBrandController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public CarBrandController(IRepositoryWrapper dbContext,ILogger<CarBrandController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -37,6 +41,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             try
             {
                 IEnumerable<CarBrandInfo> carBrandInfos = await dbContext.carBrandInfoRepository.GetAllInfoAsync();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示车辆品牌信息");
                 return Ok(carBrandInfos.ToList());
             }
             catch (Exception ex)
@@ -62,6 +67,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     CarBrandInfo carBrandInfo = await dbContext.carBrandInfoRepository.GetFirstInfo(carbrandId);
                     return Ok(carBrandInfo);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}获取一条车辆品牌信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -17,14 +18,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class EquipmentController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<EquipmentController> _logger;
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public EquipmentController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public EquipmentController(IRepositoryWrapper dbContext,ILogger<EquipmentController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -38,6 +42,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             {
                 IEnumerable<EquipmentInfo> equipmentInfos = await dbContext.equipmentInfoRepository.GetAllInfoAsync();
                 List<EquipmentInfo> list = equipmentInfos.Where(s => s.IsDelete == 1).ToList();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示设备信息");
                 return Ok(list);
             }
             catch (Exception ex)
@@ -59,6 +64,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.equipmentInfoRepository.CreateInfo(equipmentInfo);
                 if (await dbContext.equipmentInfoRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加设备信息");
                 return Ok("添加失败");
             }
             catch (Exception ex)
@@ -84,6 +90,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     EquipmentInfo equipmentInfo = await dbContext.equipmentInfoRepository.GetFirstInfo(equipmentId);
                     return Ok(equipmentInfo);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示一条设备信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -113,6 +120,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.equipmentInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}删除设备信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -145,6 +153,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.equipmentInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}修改设备信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }

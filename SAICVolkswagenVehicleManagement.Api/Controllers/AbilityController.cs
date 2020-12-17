@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -17,13 +18,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class AbilityController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<AbilityController> _logger;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public AbilityController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public AbilityController(IRepositoryWrapper dbContext,ILogger<AbilityController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
         /// <summary>
         /// 获取能力信息 
@@ -35,6 +40,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             try
             {
                 IEnumerable<AbilityInfo> abilityInfos = await dbContext.abilityInfoRepository.GetAllInfoAsync();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示能力信息");
                 return Ok(abilityInfos.ToList());
             }
             catch (Exception ex)
@@ -60,6 +66,8 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     AbilityInfo abilityInfo = await dbContext.abilityInfoRepository.GetFirstInfo(abilityId);
                     return Ok(abilityInfo);
                 }
+                //记录日志
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}获取一条能力信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -82,6 +90,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.abilityInfoRepository.CreateInfo(abilityInfo);
                 if (await dbContext.abilityInfoRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加一条能力信息");
                 return Ok("添加失败");
             }
             catch (Exception ex)
@@ -110,6 +119,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.abilityInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}删除一条能力信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -140,6 +150,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.abilityInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}修改一条能力信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }

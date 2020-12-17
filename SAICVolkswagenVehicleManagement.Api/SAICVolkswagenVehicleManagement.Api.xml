@@ -9,11 +9,12 @@
             驾驶员能力
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.AbilityController.GetAbilityAsync">
             <summary>
@@ -54,11 +55,12 @@
             车辆品牌信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarBrandController.GetCarBrandAsync">
             <summary>

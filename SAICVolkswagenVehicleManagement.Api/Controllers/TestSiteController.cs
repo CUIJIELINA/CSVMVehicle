@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -17,13 +18,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class TestSiteController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<TestSiteController> _logger;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public TestSiteController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public TestSiteController(IRepositoryWrapper dbContext,ILogger<TestSiteController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,6 +41,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             try
             {
                 IEnumerable<TestSiteInfo> testSiteInfos = await dbContext.testSiteInfoRepository.GetAllInfoAsync();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}显示试验地点信息");
                 return Ok(testSiteInfos.ToList());
             }
             catch (Exception ex)
@@ -61,6 +67,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     TestSiteInfo testSiteInfo = await dbContext.testSiteInfoRepository.GetFirstInfo(TestSiteId);
                     return Ok(testSiteInfo);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}显示一条试验地点信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -83,6 +90,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.testSiteInfoRepository.CreateInfo(testSiteInfo);
                 if (await dbContext.testSiteInfoRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}添加试验地点信息");
                 return Ok("注册失败");
             }
             catch (Exception ex)
@@ -111,6 +119,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.testSiteInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}删除试验地点信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -140,6 +149,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.testSiteInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}修改试验地点信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }

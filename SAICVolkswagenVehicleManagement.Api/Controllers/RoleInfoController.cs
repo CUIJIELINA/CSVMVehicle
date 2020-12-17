@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -17,13 +18,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class RoleInfoController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<RoleInfoController> _logger;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public RoleInfoController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public RoleInfoController(IRepositoryWrapper dbContext,ILogger<RoleInfoController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,6 +41,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             try
             {
                 IEnumerable<RoleInfo> roleInfos = await dbContext.roleInfoRepository.GetAllInfoAsync();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示角色信息");
                 return Ok(roleInfos.ToList());
             }
             catch (Exception ex)
@@ -60,6 +66,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     //找到这条数据
                     RoleInfo roleInfo = await dbContext.roleInfoRepository.GetFirstInfo(roleId);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示一条角色信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -82,6 +89,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.roleInfoRepository.CreateInfo(roleInfo);
                 if (await dbContext.roleInfoRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加角色信息");
                 return Ok("注册失败");
             }
             catch (Exception ex)
@@ -110,6 +118,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.roleInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}删除角色信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -140,6 +149,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.roleInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}修改角色信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }

@@ -98,6 +98,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (r_UserInfo.UserName == userInfo.UserName && r_UserInfo.UserPassWord == userInfo.UserPassWord)
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}登录员工信息");
                 //如果没有找到说明数据不存在
                 return NotFound();
             }
@@ -123,6 +124,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     R_UserInfo r_UserInfo = await dbContext.r_UserInfoRepository.GetFirstInfo(userId);
                     return Ok(r_UserInfo);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}获取一条员工信息");
                 //如果没有说明数据不存在
                 return NotFound();
             }
@@ -145,6 +147,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.r_UserInfoRepository.CreateInfo(r_UserInfo);
                 if (await dbContext.r_UserInfoRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}注册员工信息");
                 return Ok("注册失败");
             }
             catch (Exception ex)
@@ -172,6 +175,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.r_UserInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}删除员工信息");
                 return NotFound();
             }
             catch (Exception ex)
@@ -206,6 +210,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.r_UserInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}修改员工信息");
                 //如果不存在
                 return NotFound();
             }

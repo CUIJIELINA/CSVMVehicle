@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -17,13 +18,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class MenuController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<MenuController> _logger;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public MenuController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public MenuController(IRepositoryWrapper dbContext,ILogger<MenuController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,6 +41,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             try
             {
                 IEnumerable<Permission> permissions = await dbContext.permissionRepository.GetAllInfoAsync();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示菜单信息");
                 return Ok(permissions.ToList());
             }
             catch (Exception ex)
@@ -61,6 +67,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     Permission permission = await dbContext.permissionRepository.GetFirstInfo(permissionId);
                     return Ok(permission);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示一条菜单信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -83,6 +90,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.permissionRepository.CreateInfo(permission);
                 if (await dbContext.permissionRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加菜单信息");
                 return Ok("添加失败");
             }
             catch (Exception ex)
@@ -111,6 +119,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.permissionRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}删除菜单信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -140,6 +149,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.permissionRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}修改菜单信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }

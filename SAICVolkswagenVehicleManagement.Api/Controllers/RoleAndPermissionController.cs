@@ -46,6 +46,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 IEnumerable<RoleInfo> roleInfos = await dbContext.roleInfoRepository.GetAllInfoAsync();
                 //获取菜单信息
                 IEnumerable<Permission> permissions = await dbContext.permissionRepository.GetAllInfoAsync();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示角色和菜单信息");
                 //两表联查
                 return Ok();
             }
@@ -73,6 +74,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     Role_Permission role_Permission = await dbContext.role_PermissionRepository.GetFirstInfo(connectionId);
                     return Ok(role_Permission);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示一条角色和菜单信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -96,6 +98,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.role_PermissionRepository.CreateInfo(role_Permission);
                 if (await dbContext.role_PermissionRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加角色和菜单信息");
                 return Ok("添加失败");
             }
             catch (Exception ex)
@@ -124,6 +127,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.role_PermissionRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}删除角色和菜单信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -157,6 +161,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.role_PermissionRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}修改角色和菜单信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }

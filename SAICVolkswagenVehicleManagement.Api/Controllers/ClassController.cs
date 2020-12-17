@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -17,13 +18,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
     public class ClassController : ControllerBase
     {
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<ClassController> _logger;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public ClassController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public ClassController(IRepositoryWrapper dbContext,ILogger<ClassController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
 
         /// <summary>
@@ -36,6 +41,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             try
             {
                 IEnumerable<ClassInfo> classInfos = await dbContext.classInfoRepository.GetAllInfoAsync();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示班级信息");
                 return Ok(classInfos.ToList());
             }
             catch (Exception ex)
@@ -61,6 +67,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     ClassInfo classInfo = await dbContext.classInfoRepository.GetFirstInfo(ClassId);
                     return Ok(classInfo);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示一条班级信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -83,6 +90,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.classInfoRepository.CreateInfo(classInfo);
                 if (await dbContext.classInfoRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加班级信息");
                 return Ok("添加失败");
             }
             catch (Exception ex)
@@ -111,6 +119,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.classInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}删除班级信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
@@ -141,6 +150,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.classInfoRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}修改班级信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
