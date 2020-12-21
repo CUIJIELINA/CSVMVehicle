@@ -26,5 +26,6 @@ namespace SAICVolkswagenVehicleManagement_Model
         public DbSet<User_Role> User_Role { get; set; }
         public DbSet<AbilityInfo> AbilityInfo { get; set; }
         public DbSet<ClassInfo> ClassInfo { get; set; }
+        public DbSet<VehicleParameters> VehicleParameters { get; set; }
     }
 }

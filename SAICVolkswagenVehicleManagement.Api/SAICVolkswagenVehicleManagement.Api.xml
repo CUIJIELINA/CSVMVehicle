@@ -101,11 +101,12 @@
             车辆信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.CarController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.CarController.GetCarAsync">
             <summary>
@@ -146,11 +147,12 @@
             班级信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.ClassController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.ClassController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.ClassController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.ClassController.GetClassAsync">
             <summary>
@@ -191,11 +193,12 @@
             部门信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DepartmentController.GetDepartmentAsync">
             <summary>
@@ -228,11 +231,12 @@
             驾驶员信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.DriverController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.DriverController.GetDriverInfoAsync">
             <summary>
@@ -286,11 +290,12 @@
             设备信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.EquipmentController.GetEquipmentAsync">
             <summary>
@@ -345,11 +350,12 @@
             菜单信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.MenuController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController.GetPermissionAsync">
             <summary>
@@ -443,11 +449,12 @@
             角色信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.RoleInfoController.GetRoleInfoAsync">
             <summary>
@@ -488,11 +495,12 @@
             试验地点信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.TestSiteController.GetTestSiteAsync">
             <summary>
@@ -533,11 +541,12 @@
             用户和角色信息
             </summary>
         </member>
-        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper)">
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController})">
             <summary>
             构造函数
             </summary>
             <param name="dbContext"></param>
+            <param name="logger"></param>
         </member>
         <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.UserAndRoleController.GetUserAndRoleAsync">
             <summary>
@@ -636,6 +645,52 @@
             修改一条用户数据
             </summary>
             <param name="userInfo">反填的用户信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.VehicleParametersController">
+            <summary>
+            车辆参数表
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.VehicleParametersController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.VehicleParametersController})">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.VehicleParametersController.GetVehicleParametersAsync">
+            <summary>
+            显示车辆参数信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.VehicleParametersController.GetFirstVehicleParameterAsync(System.Int32)">
+            <summary>
+            显示一条车辆参数信息
+            </summary>
+            <param name="vehicleparameterId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.VehicleParametersController.InsertVehicleParametersAsync(SAICVolkswagenVehicleManagement_Model.VehicleParameters)">
+            <summary>
+            添加车辆参数信息
+            </summary>
+            <param name="vehicleParameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.VehicleParametersController.DeleteVehicleParametersAsync(System.Int32)">
+            <summary>
+            删除一条信息
+            </summary>
+            <param name="vehicleparameterId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.VehicleParametersController.UpdateVehicleParametersAsync(SAICVolkswagenVehicleManagement_Model.VehicleParameters)">
+            <summary>
+            修改信息
+            </summary>
+            <param name="vehicleParameters"></param>
             <returns></returns>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.CarAndCarBrandDto">

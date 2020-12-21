@@ -206,7 +206,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 if (await dbContext.role_PermissionRepository.SaveAsync())
                     return Ok(1);
                 //记录日志
-                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddssfff")}添加角色和权限");
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加角色和权限");
                 return Ok("添加失败");
             }
             catch (Exception ex)

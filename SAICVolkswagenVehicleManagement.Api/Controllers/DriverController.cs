@@ -15,6 +15,7 @@ using Spire.Xls;
 using CellRange = Spire.Xls.CellRange;
 using Dapper;
 using SAICVolkswagenVehicleManagement.Api.Models;
+using Microsoft.Extensions.Logging;
 
 namespace SAICVolkswagenVehicleManagement.Api.Controllers
 {
@@ -32,13 +33,17 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         private readonly string filePath = @"D:\Document\上汽大众\试车员试验能力档案及提升目标2.0(2).xlsx";
         //上下文
         private readonly IRepositoryWrapper dbContext;
+        private readonly ILogger<DriverController> _logger;
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="dbContext"></param>
-        public DriverController(IRepositoryWrapper dbContext)
+        /// <param name="logger"></param>
+        public DriverController(IRepositoryWrapper dbContext,ILogger<DriverController> logger)
         {
             this.dbContext = dbContext;
+            _logger = logger;
         }
         /// <summary>
         /// 获取驾驶员信息
@@ -47,39 +52,47 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDriverInfoAsync()
         {
-            //驾驶员信息
-            IEnumerable<DriverInfo> driverInfos = await dbContext.driverInfoRepository.GetAllInfoAsync();
-            //车辆信息
-            IEnumerable<CarInfo> carInfos = await dbContext.carInfoRepository.GetAllInfoAsync();
-            //品牌信息
-            IEnumerable<CarBrandInfo> carBrandInfos = await dbContext.carBrandInfoRepository.GetAllInfoAsync();
-            //班级信息
-            IEnumerable<ClassInfo> classInfos = await dbContext.classInfoRepository.GetAllInfoAsync();
-            //四表联查
-            List<DriverInfoDto> list = (from d in driverInfos.ToList()
-                                        join c in carInfos.ToList() on d.CarID equals c.CarID
-                                        join cb in carBrandInfos.ToList() on c.CarBrandID equals cb.CarBrandID
-                                        join cl in classInfos.ToList() on d.ClassID equals cl.ClassID
-                                        select new DriverInfoDto()
-                                        {
-                                            CarBrandID = cb.CarBrandID,
-                                            CarBrandName = cb.CarBrandName,
-                                            CarCode = c.CarCode,
-                                            CarID = c.CarID,
-                                            ClassID = d.ClassID,
-                                            DriverCode = d.DriverCode,
-                                            DriverID = d.DriverID,
-                                            DriverName = d.DriverName,
-                                            DriverNumber = d.DriverNumber,
-                                            DriverRemark = d.DriverRemark,
-                                            DriverSex = d.DriverSex,
-                                            DriverState = d.DriverState,
-                                            DriverType = d.DriverType,
-                                            IDNumber = d.IDNumber,
-                                            IsState = d.IsState,
-                                            ClassName = cl.ClassName
-                                        }).ToList();
-            return Ok(list);
+            try
+            {
+                //驾驶员信息
+                IEnumerable<DriverInfo> driverInfos = await dbContext.driverInfoRepository.GetAllInfoAsync();
+                //车辆信息
+                IEnumerable<CarInfo> carInfos = await dbContext.carInfoRepository.GetAllInfoAsync();
+                //品牌信息
+                IEnumerable<CarBrandInfo> carBrandInfos = await dbContext.carBrandInfoRepository.GetAllInfoAsync();
+                //班级信息
+                IEnumerable<ClassInfo> classInfos = await dbContext.classInfoRepository.GetAllInfoAsync();
+                //四表联查
+                List<DriverInfoDto> list = (from d in driverInfos.ToList()
+                                            join c in carInfos.ToList() on d.CarID equals c.CarID
+                                            join cb in carBrandInfos.ToList() on c.CarBrandID equals cb.CarBrandID
+                                            join cl in classInfos.ToList() on d.ClassID equals cl.ClassID
+                                            select new DriverInfoDto()
+                                            {
+                                                CarBrandID = cb.CarBrandID,
+                                                CarBrandName = cb.CarBrandName,
+                                                CarCode = c.CarCode,
+                                                CarID = c.CarID,
+                                                ClassID = d.ClassID,
+                                                DriverCode = d.DriverCode,
+                                                DriverID = d.DriverID,
+                                                DriverName = d.DriverName,
+                                                DriverNumber = d.DriverNumber,
+                                                DriverRemark = d.DriverRemark,
+                                                DriverSex = d.DriverSex,
+                                                DriverState = d.DriverState,
+                                                DriverType = d.DriverType,
+                                                IDNumber = d.IDNumber,
+                                                IsState = d.IsState,
+                                                ClassName = cl.ClassName
+                                            }).ToList();
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示驾驶员信息");
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -90,15 +103,24 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetFirstDriver(int driverId)
         {
-            //判断传过来的值是否存在
-            if (await dbContext.driverInfoRepository.IsExistAsync(driverId))
+            try
             {
-                //找到这一条数据
-                DriverInfo driverInfo = await dbContext.driverInfoRepository.GetFirstInfo(driverId);
-                return Ok(driverInfo);
+                //判断传过来的值是否存在
+                if (await dbContext.driverInfoRepository.IsExistAsync(driverId))
+                {
+                    //找到这一条数据
+                    DriverInfo driverInfo = await dbContext.driverInfoRepository.GetFirstInfo(driverId);
+                    return Ok(driverInfo);
+                }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示一条驾驶员信息");
+                //如果没有找到，返回错误信息
+                return NotFound();
             }
-            //如果没有找到，返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -109,10 +131,19 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertDriverAsync(DriverInfo driverInfo)
         {
-            dbContext.driverInfoRepository.CreateInfo(driverInfo);
-            if (await dbContext.driverInfoRepository.SaveAsync())
-                return Ok(1);
-            return Ok("添加失败");
+            try
+            {
+                dbContext.driverInfoRepository.CreateInfo(driverInfo);
+                if (await dbContext.driverInfoRepository.SaveAsync())
+                    return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加驾驶员信息");
+                return Ok("添加失败");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         /// <summary>
@@ -249,7 +280,8 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //驾驶员和车辆随机匹配
                 //根据车辆是否被使用查找出这条数据,这是一辆空闲车辆
                 var IsUseCar = carInfos.ToList().Where(s => s.IsUse.Equals(0)).FirstOrDefault();
-                //给驾驶员分配空闲的车辆
+                //找到空闲的驾驶员
+                var IsStateDriver = driverInfos.ToList().Where(s => s.IsState.Equals(0)).FirstOrDefault();
                 return Ok();
             }
             catch (Exception ex)

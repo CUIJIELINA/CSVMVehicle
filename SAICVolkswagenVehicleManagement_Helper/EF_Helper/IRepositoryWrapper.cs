@@ -22,6 +22,7 @@ namespace SAICVolkswagenVehicleManagement_Helper
         IRole_PermissionRepository role_PermissionRepository { get; }
         IAbilityInfoRepository abilityInfoRepository { get; }
         IClassInfoRepository classInfoRepository { get; }
+        IVehicleParametersRepository vehicleParametersRepository { get; }
 
     }
 }

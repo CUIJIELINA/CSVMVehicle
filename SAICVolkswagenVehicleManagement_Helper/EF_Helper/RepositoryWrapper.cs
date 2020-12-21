@@ -44,5 +44,7 @@ namespace SAICVolkswagenVehicleManagement_Helper
         public IAbilityInfoRepository abilityInfoRepository => new AbilityInfoRepository(base_DbContext);
 
         public IClassInfoRepository classInfoRepository => new ClassInfoRepository(base_DbContext);
+
+        public IVehicleParametersRepository vehicleParametersRepository => new VehicleParametersRepository(base_DbContext);
     }
 }
