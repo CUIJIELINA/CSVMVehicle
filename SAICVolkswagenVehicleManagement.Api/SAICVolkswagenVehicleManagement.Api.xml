@@ -693,6 +693,106 @@
             <param name="vehicleParameters"></param>
             <returns></returns>
         </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto">
+            <summary>
+            能力和车辆参数信息
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.VPId">
+            <summary>
+            车辆参数Id
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.CarNumber">
+            <summary>
+            车号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.VDSNumber">
+            <summary>
+            VDS号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.ProjectNumber">
+            <summary>
+            项目编号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.CarModel">
+            <summary>
+            车型
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.AbilityId">
+            <summary>
+            能力Id
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.StateDate">
+            <summary>
+            开始时间
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.EndDate">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.EngineStructure">
+            <summary>
+            发动机结构
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.EngineNumber">
+            <summary>
+            发动机号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.Transmission">
+            <summary>
+            变速箱式样
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.TyreSize">
+            <summary>
+            轮胎尺寸
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.CurrentMileage">
+            <summary>
+            当前里程
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.RemainingMileage">
+            <summary>
+            剩余里程
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.Odometer">
+            <summary>
+            里程表里程
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.MileageToRun">
+            <summary>
+            应跑里程
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.RemainingFrequency">
+            <summary>
+            剩余每周所需班次
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.AbilityAndVehicleParametersDto.DriverAbilityName">
+            <summary>
+            能力名称
+            </summary>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.CarAndCarBrandDto">
             <summary>
             车辆和车辆信息Dto

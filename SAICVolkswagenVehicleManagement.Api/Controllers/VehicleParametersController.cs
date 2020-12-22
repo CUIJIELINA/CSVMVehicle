@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SAICVolkswagenVehicleManagement.Api.Models;
 using SAICVolkswagenVehicleManagement_Helper;
 using SAICVolkswagenVehicleManagement_Model;
 
@@ -24,7 +25,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         /// </summary>
         /// <param name="dbContext"></param>
         /// <param name="logger"></param>
-        public VehicleParametersController(IRepositoryWrapper dbContext,ILogger<VehicleParametersController> logger)
+        public VehicleParametersController(IRepositoryWrapper dbContext, ILogger<VehicleParametersController> logger)
         {
             this.dbContext = dbContext;
             _logger = logger;
@@ -39,9 +40,48 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             try
             {
+                //找到车辆参数信息
                 IEnumerable<VehicleParameters> vehicleParameters = await dbContext.vehicleParametersRepository.GetAllInfoAsync();
+                //找到能力信息
+                IEnumerable<AbilityInfo> abilityInfos = await dbContext.abilityInfoRepository.GetAllInfoAsync();
+                //两表联查
+                List<AbilityAndVehicleParametersDto> list = (from a in abilityInfos.ToList()
+                                                             join v in vehicleParameters.ToList() on a.DriverAbilityID equals v.AbilityId
+                                                             select new AbilityAndVehicleParametersDto()
+                                                             {
+                                                                 AbilityId = a.DriverAbilityID,
+                                                                 CarModel = v.CarModel,
+                                                                 CarNumber = v.CarNumber,
+                                                                 CurrentMileage = v.CurrentMileage,
+                                                                 DriverAbilityName = a.DriverAbilityName,
+                                                                 EndDate = v.EndDate,
+                                                                 EngineNumber = v.EngineNumber,
+                                                                 EngineStructure = v.EngineStructure,
+                                                                 MileageToRun = v.MileageToRun,
+                                                                 Odometer = v.Odometer,
+                                                                 ProjectNumber = v.ProjectNumber,
+                                                                 RemainingFrequency = v.RemainingFrequency,
+                                                                 RemainingMileage = v.RemainingMileage,
+                                                                 Remark = v.Remark,
+                                                                 StateDate = v.StateDate,
+                                                                 Transmission = v.Transmission,
+                                                                 TyreSize = v.TyreSize,
+                                                                 VDSNumber = v.VDSNumber,
+                                                                 VPId = v.VPId
+                                                             }).ToList();
+                //计算一些数据（里程和班次），循环List里面的所有数据
+                foreach (var item in list)
+                {
+                    //如果里程表里有里程
+                    if(item.Odometer > 0)
+                        item.CurrentMileage = item.MileageToRun - item.Odometer;
+                    //剩余里程
+                    item.RemainingMileage = item.MileageToRun - item.CurrentMileage;
+                    //剩余每周所需班次
+                    item.RemainingFrequency = "";
+                }
                 _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示车辆参数信息");
-                return Ok(vehicleParameters.ToList());
+                return Ok(list);
             }
             catch (Exception ex)
             {
@@ -89,6 +129,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 dbContext.vehicleParametersRepository.CreateInfo(vehicleParameters);
                 if (await dbContext.vehicleParametersRepository.SaveAsync())
                     return Ok(1);
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加车辆参数信息");
                 return Ok("添加失败");
             }
             catch (Exception ex)
@@ -106,13 +147,13 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         public async Task<IActionResult> DeleteVehicleParametersAsync(int vehicleparameterId)
         {
             //判断传过来的数据是否存在
-            if(await dbContext.vehicleParametersRepository.IsExistAsync(vehicleparameterId))
+            if (await dbContext.vehicleParametersRepository.IsExistAsync(vehicleparameterId))
             {
                 //找到这条数据
                 VehicleParameters vehicleParameters = await dbContext.vehicleParametersRepository.GetFirstInfo(vehicleparameterId);
                 //删除数据
                 dbContext.vehicleParametersRepository.DeleteInfo(vehicleParameters);
-                if(await dbContext.vehicleParametersRepository.SaveAsync())
+                if (await dbContext.vehicleParametersRepository.SaveAsync())
                     return Ok(1);
             }
             //如果不存在返回错误信息
