@@ -78,7 +78,6 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     //剩余里程
                     item.RemainingMileage = item.MileageToRun - item.CurrentMileage;
                     //剩余每周所需班次
-                    item.RemainingFrequency = "";
                 }
                 _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示车辆参数信息");
                 return Ok(list);
@@ -126,6 +125,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         {
             try
             {
+                //自动计算当前里程和剩余里程，在前台计算，直接赋值，不可编辑
                 dbContext.vehicleParametersRepository.CreateInfo(vehicleParameters);
                 if (await dbContext.vehicleParametersRepository.SaveAsync())
                     return Ok(1);
@@ -146,18 +146,26 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteVehicleParametersAsync(int vehicleparameterId)
         {
-            //判断传过来的数据是否存在
-            if (await dbContext.vehicleParametersRepository.IsExistAsync(vehicleparameterId))
+            try
             {
-                //找到这条数据
-                VehicleParameters vehicleParameters = await dbContext.vehicleParametersRepository.GetFirstInfo(vehicleparameterId);
-                //删除数据
-                dbContext.vehicleParametersRepository.DeleteInfo(vehicleParameters);
-                if (await dbContext.vehicleParametersRepository.SaveAsync())
-                    return Ok(1);
+                //判断传过来的数据是否存在
+                if (await dbContext.vehicleParametersRepository.IsExistAsync(vehicleparameterId))
+                {
+                    //找到这条数据
+                    VehicleParameters vehicleParameters = await dbContext.vehicleParametersRepository.GetFirstInfo(vehicleparameterId);
+                    //删除数据
+                    dbContext.vehicleParametersRepository.DeleteInfo(vehicleParameters);
+                    if (await dbContext.vehicleParametersRepository.SaveAsync())
+                        return Ok(1);
+                }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}删除一条车辆参数信息");
+                //如果不存在返回错误信息
+                return NotFound();
             }
-            //如果不存在返回错误信息
-            return NotFound();
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -180,6 +188,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                     if (await dbContext.vehicleParametersRepository.SaveAsync())
                         return Ok(1);
                 }
+                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}修改一条车辆参数信息");
                 //如果不存在返回错误信息
                 return NotFound();
             }
