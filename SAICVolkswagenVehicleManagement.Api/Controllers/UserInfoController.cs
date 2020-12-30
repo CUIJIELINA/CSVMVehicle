@@ -50,10 +50,18 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 IEnumerable<R_UserInfo> r_UserInfos = await dbContext.r_UserInfoRepository.GetAllInfoAsync();
                 //获取部门列表
                 IEnumerable<DepartmentInfo> departmentInfos = await dbContext.departmentInfoRepository.GetAllInfoAsync();
+                //获取角色列表
+                IEnumerable<RoleInfo> roleInfos = await dbContext.roleInfoRepository.GetAllInfoAsync();
+                //获取角色和用户关联表
+                IEnumerable<User_Role> user_Roles = await dbContext.user_RoleRepository.GetAllInfoAsync();
                 //两表联查
                 var list = (from r in r_UserInfos.ToList()
                             join d in departmentInfos.ToList()
                             on r.Department_ID equals d.DepartmentID
+                            join ur in user_Roles.ToList()
+                            on r.UserID equals ur.UserID
+                            join ri in roleInfos.ToList()
+                            on ur.RoleID equals ri.RoleID
                             select new UserAndDepartmentDto()
                             {
                                 UserID = r.UserID,
@@ -67,7 +75,8 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                                 CreateDate = r.CreateDate,
                                 E_Mail = r.E_Mail,
                                 UserRemark = r.UserRemark,
-                                UserSex = r.UserSex
+                                UserSex = r.UserSex,
+                                RoleName = ri.RoleName
                             }).ToList();
                 //记录日志
                 _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddmmssfff")}获取员工信息");

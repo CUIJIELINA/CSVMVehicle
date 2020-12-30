@@ -928,6 +928,16 @@
             班级名称
             </summary>
         </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.DriverInfoDto.DriverAbilityName">
+            <summary>
+            驾驶员能力
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.DriverInfoDto.AbilityID">
+            <summary>
+            能力Id
+            </summary>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.RoleAndPermissionDto">
             <summary>
             角色和权限同时添加
@@ -1006,6 +1016,16 @@
         <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.CreateDate">
             <summary>
             创建日期
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.RoleID">
+            <summary>
+            角色Id
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.UserAndDepartmentDto.RoleName">
+            <summary>
+            角色名称
             </summary>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.UserAndRoleDto">

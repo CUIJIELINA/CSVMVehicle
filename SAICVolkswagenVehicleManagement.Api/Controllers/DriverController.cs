@@ -40,7 +40,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
         /// </summary>
         /// <param name="dbContext"></param>
         /// <param name="logger"></param>
-        public DriverController(IRepositoryWrapper dbContext,ILogger<DriverController> logger)
+        public DriverController(IRepositoryWrapper dbContext, ILogger<DriverController> logger)
         {
             this.dbContext = dbContext;
             _logger = logger;
@@ -62,11 +62,14 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 IEnumerable<CarBrandInfo> carBrandInfos = await dbContext.carBrandInfoRepository.GetAllInfoAsync();
                 //班级信息
                 IEnumerable<ClassInfo> classInfos = await dbContext.classInfoRepository.GetAllInfoAsync();
-                //四表联查
+                //获取能力信息
+                IEnumerable<AbilityInfo> abilityInfos = await dbContext.abilityInfoRepository.GetAllInfoAsync();
+                //五表联查
                 List<DriverInfoDto> list = (from d in driverInfos.ToList()
                                             join c in carInfos.ToList() on d.CarID equals c.CarID
                                             join cb in carBrandInfos.ToList() on c.CarBrandID equals cb.CarBrandID
                                             join cl in classInfos.ToList() on d.ClassID equals cl.ClassID
+                                            join a in abilityInfos.ToList() on d.AbilityID equals a.DriverAbilityID
                                             select new DriverInfoDto()
                                             {
                                                 CarBrandID = cb.CarBrandID,
@@ -84,7 +87,9 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                                                 DriverType = d.DriverType,
                                                 IDNumber = d.IDNumber,
                                                 IsState = d.IsState,
-                                                ClassName = cl.ClassName
+                                                ClassName = cl.ClassName,
+                                                AbilityID = a.DriverAbilityID,
+                                                DriverAbilityName = a.DriverAbilityName
                                             }).ToList();
                 _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}显示驾驶员信息");
                 return Ok(list);
@@ -120,7 +125,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -143,7 +148,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             {
                 throw new Exception(ex.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -282,6 +287,8 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 var IsUseCar = carInfos.ToList().Where(s => s.IsUse.Equals(0)).FirstOrDefault();
                 //找到空闲的驾驶员
                 var IsStateDriver = driverInfos.ToList().Where(s => s.IsState.Equals(0)).FirstOrDefault();
+                //开始匹配车辆
+
                 return Ok();
             }
             catch (Exception ex)

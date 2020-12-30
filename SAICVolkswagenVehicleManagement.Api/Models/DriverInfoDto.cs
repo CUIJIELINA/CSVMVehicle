@@ -87,5 +87,13 @@ namespace SAICVolkswagenVehicleManagement.Api.Models
         /// 班级名称
         /// </summary>
         public string ClassName { get; set; }
+        /// <summary>
+        /// 驾驶员能力
+        /// </summary>
+        public string DriverAbilityName { get; set; }
+        /// <summary>
+        /// 能力Id
+        /// </summary>
+        public int AbilityID { get; set; }
     }
 }

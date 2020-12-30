@@ -58,5 +58,13 @@ namespace SAICVolkswagenVehicleManagement.Api.Models
         /// 创建日期
         /// </summary>
         public DateTime CreateDate { get; set; }
+        /// <summary>
+        /// 角色Id
+        /// </summary>
+        public int RoleID { get; set; }
+        /// <summary>
+        /// 角色名称
+        /// </summary>
+        public string RoleName { get; set; }
     }
 }
