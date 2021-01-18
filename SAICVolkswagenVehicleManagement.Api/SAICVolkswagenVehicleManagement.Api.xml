@@ -345,6 +345,98 @@
             <param name="equipmentId">设备ID</param>
             <returns></returns>
         </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.FaultRecordController">
+            <summary>
+            故障记录信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.FaultRecordController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.FaultRecordController})">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.FaultRecordController.GetFaultRecordAsync">
+            <summary>
+            显示故障信息表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.FaultRecordController.GetFirstFaultRecordAsync(System.Int32)">
+            <summary>
+            根据条件显示一条故障信息
+            </summary>
+            <param name="faultrecordId">故障记录ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.FaultRecordController.InsertFaultRecordAsync(SAICVolkswagenVehicleManagement_Model.FaultRecordInfo)">
+            <summary>
+            添加故障记录表
+            </summary>
+            <param name="faultRecordInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.FaultRecordController.DeleteFaultRecordAsync(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+            <param name="faultrecordId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.FaultRecordController.UpdateFaultRecordAsync(SAICVolkswagenVehicleManagement_Model.FaultRecordInfo)">
+            <summary>
+            修改一条故障记录数据
+            </summary>
+            <param name="faultRecordInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.GroupInfoController">
+            <summary>
+            组别信息
+            </summary>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.GroupInfoController.#ctor(SAICVolkswagenVehicleManagement_Helper.IRepositoryWrapper,Microsoft.Extensions.Logging.ILogger{SAICVolkswagenVehicleManagement.Api.Controllers.GroupInfoController})">
+            <summary>
+            构造函数
+            </summary>
+            <param name="dbContext"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.GroupInfoController.GetGroupAsync">
+            <summary>
+            获取组别信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.GroupInfoController.GetFirstGroupAsync(System.Int32)">
+            <summary>
+            根据条件找到一条数据
+            </summary>
+            <param name="GroupId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.GroupInfoController.InsertGroupInfoAsync(SAICVolkswagenVehicleManagement_Model.GroupInfo)">
+            <summary>
+            添加组别信息
+            </summary>
+            <param name="groupInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.GroupInfoController.DeleteGroupInfoAsync(System.Int32)">
+            <summary>
+            删除一条数据
+            </summary>
+            <param name="GroupId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SAICVolkswagenVehicleManagement.Api.Controllers.GroupInfoController.UpdateGroupInfoAsync(SAICVolkswagenVehicleManagement_Model.GroupInfo)">
+            <summary>
+            修改组别信息
+            </summary>
+            <param name="groupInfo"></param>
+            <returns></returns>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Controllers.MenuController">
             <summary>
             菜单信息
@@ -936,6 +1028,121 @@
         <member name="P:SAICVolkswagenVehicleManagement.Api.Models.DriverInfoDto.AbilityID">
             <summary>
             能力Id
+            </summary>
+        </member>
+        <member name="T:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto">
+            <summary>
+            故障记录信息表Dto
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.FaultID">
+            <summary>
+            故障ID
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.CarNumber">
+            <summary>
+            车号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.VDSNumber">
+            <summary>
+            VDS号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.CarBrandID">
+            <summary>
+            车辆品牌ID
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.VehicleClass">
+            <summary>
+            车辆等级
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.Project">
+            <summary>
+            项目编号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.AbilityID">
+            <summary>
+            实验类型ID
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.GroupID">
+            <summary>
+            组别分类ID
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.FaultRemark">
+            <summary>
+            故障描述
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.Keyword">
+            <summary>
+            关键字
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.Picture">
+            <summary>
+            图片
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.ComplaintRating">
+            <summary>
+            抱怨评级
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.KPMNumber">
+            <summary>
+            KPM编号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.Mileage">
+            <summary>
+            里程
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.CreateDate">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.CreateGroup">
+            <summary>
+            创建组
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.Founder">
+            <summary>
+            创建人
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.GroupCode">
+            <summary>
+            组别编号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.GroupName">
+            <summary>
+            组别名称
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.CarBrandCode">
+            <summary>
+            车辆品牌编号
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.CarBrandName">
+            <summary>
+            车辆品牌名称
+            </summary>
+        </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.DriverAbilityName">
+            <summary>
+            试验类型名称
             </summary>
         </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.RoleAndPermissionDto">

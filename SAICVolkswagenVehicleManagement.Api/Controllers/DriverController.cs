@@ -288,7 +288,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                 //找到空闲的驾驶员
                 var IsStateDriver = driverInfos.ToList().Where(s => s.IsState.Equals(0)).FirstOrDefault();
                 //开始匹配车辆
-
+                
                 return Ok();
             }
             catch (Exception ex)

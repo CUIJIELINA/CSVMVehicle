@@ -23,6 +23,8 @@ namespace SAICVolkswagenVehicleManagement_Helper
         IAbilityInfoRepository abilityInfoRepository { get; }
         IClassInfoRepository classInfoRepository { get; }
         IVehicleParametersRepository vehicleParametersRepository { get; }
+        IGroupInfoRepository groupInfoRepository { get; }
+        IFaultRecordInfoRepository faultRecordInfoRepository { get; }
 
     }
 }

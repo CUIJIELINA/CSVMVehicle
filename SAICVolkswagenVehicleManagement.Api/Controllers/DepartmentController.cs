@@ -61,8 +61,10 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
             {
                 dbContext.departmentInfoRepository.CreateInfo(departmentInfo);
                 if (await dbContext.departmentInfoRepository.SaveAsync())
+                {
+                    _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加部门信息");
                     return Ok(1);
-                _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}添加部门信息");
+                }
                 return Ok("添加失败");
             }
             catch (Exception ex)
