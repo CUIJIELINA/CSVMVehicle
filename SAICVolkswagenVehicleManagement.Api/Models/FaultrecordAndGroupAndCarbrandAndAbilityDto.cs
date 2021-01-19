@@ -98,5 +98,10 @@ namespace SAICVolkswagenVehicleManagement.Api.Models
         /// 试验类型名称
         /// </summary>
         public string DriverAbilityName { get; set; }
+        /// <summary>
+        /// 分类名称
+        /// </summary>
+        public string typeName { get; set; }
+        public int TypeId { get; set; }
     }
 }

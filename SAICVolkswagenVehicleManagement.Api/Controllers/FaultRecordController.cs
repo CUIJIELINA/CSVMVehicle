@@ -54,6 +54,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                             join f in faultRecordInfos.ToList() on g.GroupID equals f.GroupID
                             join c in carBrandInfos.ToList() on f.CarBrandID equals c.CarBrandID
                             join a in abilityInfos.ToList() on f.AbilityID equals a.DriverAbilityID
+                            join zg in groupInfos.ToList() on g.UpID equals zg.GroupID
                             select new FaultrecordAndGroupAndCarbrandAndAbilityDto()
                             {
                                 AbilityID = a.DriverAbilityID,
@@ -68,7 +69,7 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                                 FaultID = f.FaultID,
                                 FaultRemark = f.FaultRemark,
                                 Founder = f.Founder,
-                                GroupCode = f.Founder,
+                                GroupCode = g.GroupCode,
                                 GroupID = g.GroupID,
                                 GroupName = g.GroupName,
                                 Keyword = f.Keyword,
@@ -77,7 +78,9 @@ namespace SAICVolkswagenVehicleManagement.Api.Controllers
                                 Picture = f.Picture,
                                 Project = f.Project,
                                 VDSNumber = f.VDSNumber,
-                                VehicleClass = f.VehicleClass
+                                VehicleClass = f.VehicleClass,
+                                typeName = zg.GroupName,
+                                TypeId = zg.GroupID
                             }).ToList();
                 //记录日志
                 _logger.LogInformation($"{DateTime.Now.ToString("yyyyMMddHHmmssfff")}，提示信息：显示故障信息");

@@ -1145,6 +1145,11 @@
             试验类型名称
             </summary>
         </member>
+        <member name="P:SAICVolkswagenVehicleManagement.Api.Models.FaultrecordAndGroupAndCarbrandAndAbilityDto.typeName">
+            <summary>
+            分类名称
+            </summary>
+        </member>
         <member name="T:SAICVolkswagenVehicleManagement.Api.Models.RoleAndPermissionDto">
             <summary>
             角色和权限同时添加
